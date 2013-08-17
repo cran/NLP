@@ -1,0 +1,16 @@
+440338cb543596acc9210a09e3905d72 *DESCRIPTION
+f71f24c3c8f7627fb164f8f4bedf832f *NAMESPACE
+1e26397565660eeaca18d1f643a63758 *R/annotate.R
+6e86b5839fd5592b262ad8239465bb06 *R/annotation.R
+fbfebfda5f30130ef82f0af7813ac8a8 *R/annotators.R
+d8e5f81addeaf6dfe3759561bb40c742 *R/span.R
+e91c20c307edcb1cb264dd5005bcc054 *R/string.R
+03553b57ab0e75d3aeb2c80d8ca91988 *R/tokenize.R
+81db99a0037d0d6fd1ca2615b2f2f0ec *man/Annotation.Rd
+94dc1315027cd7e41b89d04706a2e718 *man/Annotator.Rd
+e59d9fc827fc5254601cc00d82e64c5c *man/Span.Rd
+158ed2822b05b072e69300cee475521d *man/String.Rd
+12eb7ce3582560380cba63f80aa5c182 *man/annotate.Rd
+b5882f031fc68851061d0a52ccb14e58 *man/annotations_in_spans.Rd
+f33a78a50a089fd343f3e21305ee342a *man/annotators.Rd
+56d06aab11311b40645f50f129df3aef *man/tokenizers.Rd

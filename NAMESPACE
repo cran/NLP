@@ -1,0 +1,59 @@
+export("String", "as.String", "is.String")
+S3method("[", "String")
+S3method("print", "String")
+
+export("Span", "as.Span", "is.Span")
+S3method("as.Span", "Span")
+S3method("as.Span", "Annotation")
+S3method("[", "Span")
+## S3method("[<-", "Span")
+S3method("[[", "Span")
+## S3method("[[<-", "Span")
+S3method("$<-", "Span")
+S3method("Ops", "Span")
+S3method("as.data.frame", "Span")
+S3method("as.list", "Span")
+S3method("c", "Span")
+S3method("duplicated", "Span")
+S3method("format", "Span")
+S3method("length", "Span")
+S3method("names", "Span")
+S3method("print", "Span")
+S3method("unique", "Span")
+
+export("Annotation", "as.Annotation", "is.Annotation")
+S3method("as.Annotation", "Annotation")
+S3method("as.Annotation", "Span")
+S3method("[", "Annotation")
+## S3method("[<-", "Annotation")
+S3method("[[", "Annotation")
+## S3method("[[<-", "Annotation")
+S3method("$<-", "Annotation")
+S3method("as.data.frame", "Annotation")
+S3method("as.list", "Annotation")
+S3method("c", "Annotation")
+S3method("duplicated", "Annotation")
+S3method("format", "Annotation")
+S3method("length", "Annotation")
+S3method("merge", "Annotation")
+S3method("names", "Annotation")
+S3method("print", "Annotation")
+S3method("subset", "Annotation")
+S3method("unique", "Annotation")
+export("annotations_in_spans")
+
+export("annotate")
+
+export("Annotator")
+S3method("print", "Annotator")
+export("Simple_Sent_Token_Annotator",
+       "Simple_Word_Token_Annotator",
+       "Simple_POS_Tag_Annotator",
+       "Simple_Entity_Annotator",
+       "Simple_Chunk_Annotator")
+
+export("Regexp_Tokenizer",
+       "blankline_tokenizer",
+       "whitespace_tokenizer",
+       "wordpunct_tokenizer")
+
