@@ -46,7 +46,6 @@ function(x, i, j)
 
 ## More methods?
 ##
-## * A popular mailing list discussion item is to use a Java style '+'
-##   operator for concatenating strings (not uniformly liked as the
-##   corresponding operation is not commutative).
-
+## A popular mailing list discussion item is to use a Java style '+'
+## operator for concatenating strings (not uniformly liked as the
+## corresponding operation is not commutative).

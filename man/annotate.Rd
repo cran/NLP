@@ -4,7 +4,7 @@
 \description{
   Compute annotations by iteratively calling the given annotators with
   the given text and current annotations, and merging the newly computed
-  annotations with the already available ones.
+  annotations with the current ones.
 }
 \usage{
 annotate(s, f, a = Annotation())

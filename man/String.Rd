@@ -20,29 +20,29 @@ is.String(x)
   String objects provide character strings encoded in UTF-8 with class
   \code{"String"}, which currently has a useful \code{[} subscript
   method: with indices \code{i} and \code{j} of length one, this gives a
-  String object with the substring starting at the position given by
+  string object with the substring starting at the position given by
   \code{i} and ending at the position given by \code{j}; subscripting
-  with a single index giving an object inheriting from class
+  with a single index which is an object inheriting from class
   \code{"\link{Span}"} or a list of such objects returns a character
   vector of substrings with the respective spans, or a list thereof.
 
   Further methods may be added in the future.
 
-  \code{String} creates a string object from a given character vector,
+  \code{String()} creates a string object from a given character vector,
   taking the first element of the vector and converting it to UTF-8
   encoding.
 
-  \code{as.String} coerces to a string object by calling \code{String}
+  \code{as.String()} coerces to a string object by calling \code{String}
   on the result of the \code{\link{toString}} generic.
 
-  \code{is.String} tests whether an object inherits from class
+  \code{is.String()} tests whether an object inherits from class
   \code{"String"}.
 }
 \value{
-  For \code{String} and \code{as.String}, a string object (of class
+  For \code{String()} and \code{as.String()}, a string object (of class 
   \code{"String"}).
 
-  For \code{is.String}, a logical.
+  For \code{is.String()}, a logical.
 }
 \examples{
 ## A simple text.

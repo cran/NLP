@@ -49,10 +49,10 @@ function(id = NULL, type = NULL, start, end, features = NULL)
         rep.int(list(list()), n)
     else
         lapply(features, as.list)
-    ## <FIXME>
+    ## <TODO>
     ## Should perhaps check that all elements of 'features' are named or
     ## empty lists.
-    ## </FIXME>
+    ## </TODO>
 
     a <- list(id = id,
               type = type,
@@ -103,9 +103,12 @@ function(x)
 function(x, i)
     .Annotation_from_list(lapply(unclass(x), `[`, i))
 
+## <TODO>
+## Implement eventually ...
 `[<-.Annotation` <-
 function(x, i, value)
     .NotYetImplemented()
+## </TODO>
 
 `[[.Annotation` <-
 function(x, i)
@@ -115,9 +118,12 @@ function(x, i)
     .Annotation_from_list(y)
 }
 
+## <TODO>
+## Implement eventually ...
 `[[<-.Annotation` <-
 function(x, i, value)
     .NotYetImplemented()
+## </TODO>
 
 ## $.Annotation is not really necessary.
 

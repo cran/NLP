@@ -51,16 +51,22 @@ function(x)
 `[.Span` <-
 function(x, i)
     .Span_from_list(lapply(unclass(x), `[`, i))
+## <TODO>
+## Implement eventually ...
 `[<-.Span` <-
 function(x, i, value)
     .NotYetImplemented()
+## </TODO>
 
 `[[.Span` <-
 function(x, i)
     .Span_from_list(lapply(unclass(x), `[[`, i))
+## <TODO>
+## Implement eventually ...
 `[[<-.Span` <-
 function(x, i, value)
     .NotYetImplemented()
+## </TODO>
 
 ## $.Span is not really necessary.
 `$<-.Span` <-
@@ -90,7 +96,8 @@ function(e1, e2)
                stop("Invalid operands.")
            },
            stop(gettextf("'%s' not defined for \"Span\" objects", 
-                         .Generic), domain = NA))
+                         .Generic),
+                domain = NA))
 }
 
 as.data.frame.Span <-
