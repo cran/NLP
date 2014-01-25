@@ -1,4 +1,4 @@
-## annotate() can use a single annotator or an annotation pipeline (a
+## annotate() can use a single annotator or an annotator pipeline (a
 ## list of annotators), and recursively calls the given annotators and
 ## merges annotations.
 

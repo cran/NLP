@@ -14,7 +14,7 @@ annotations_in_spans(x, y)
 }
 \value{
   A list with elements the annotations in \code{x} with character spans
-  contained in the respective element of \code{y}.
+  contained in the respective elements of \code{y}.
 }
 \examples{
 ## A simple text.

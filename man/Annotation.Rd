@@ -40,14 +40,14 @@ is.Annotation(x)
     \code{NULL} (default), resulting in empty feature lists.}
   \item{x}{an \R object (an object of class \code{"\link{Span}"} for the
     coercion methods for such objects).}
-  \item{...}{further arguments passed to or from other methods}
+  \item{...}{further arguments passed to or from other methods.}
 }
 \details{
   A single annotation (of natural language text) is a quintuple with
   \dQuote{slots} \sQuote{id}, \sQuote{type}, \sQuote{start},
   \sQuote{end}, and \sQuote{features}.  These give, respectively, id and
   type, the character span the annotation refers to, and a collection of
-  features (tag/value pairs).
+  annotation features (tag/value pairs).
 
   Annotation objects provide sequences (allowing positional access) of
   single annotations.  They have class \code{"Annotation"} and, as they
@@ -65,16 +65,16 @@ is.Annotation(x)
   of the named slot, i.e., an integer vector for \sQuote{id},
   \sQuote{start}, and \sQuote{end}, a character vector for
   \sQuote{type}, and a list of named or empty lists for
-  \sQuote{feature}.
+  \sQuote{features}.
 
   There are several additional methods for class \code{"Annotation"}:
   \code{print} and \code{format}; \code{c} combines annotations;
   \code{merge} merges annotations by combining the feature lists of
   annotations with otherwise identical slots; \code{subset} allows
   subsetting by expressions involving the slot names; and \code{as.list}
-  and \code{as.data.frame} coerce to lists (of single annotation
-  objects) and data frames (with annotations and slots corresponding to
-  rows and columns).
+  and \code{as.data.frame} coerce, respectively, to lists (of single
+  annotation objects) and data frames (with annotations and slots
+  corresponding to rows and columns).
 
   \code{Annotation()} creates annotation objects from the given sequences
   of slot values: those not \code{NULL} must all have the same length

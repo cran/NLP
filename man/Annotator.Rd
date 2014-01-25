@@ -8,7 +8,7 @@
 Annotator(f, description = NULL, classes = NULL)
 }
 \arguments{
-  \item{f}{an annotator function: these must have formals \code{s} and
+  \item{f}{an annotator function, which must have formals \code{s} and
     \code{a} giving, respectively, the string with the natural language
     text to annotate and an annotation object to start from, and return
     an annotation object with the computed annotations.}
@@ -30,7 +30,7 @@ Annotator(f, description = NULL, classes = NULL)
   \code{"Annotator"}.
 }
 \seealso{
-  \code{\link{Simple annotator generators}} for creating \dQuote{simple}
+  \link{Simple annotator generators} for creating \dQuote{simple}
   annotator objects based on function performing simple basic NLP tasks.
 
   Package \pkg{StanfordCoreNLP} available from the repository at
@@ -53,6 +53,7 @@ Annotator(function(s, a = Annotation()) {
           },
           "A paragraph token annotator based on blankline_tokenizer().")
 para_token_annotator
+## Alternatively, use Simple_Para_Token_Annotator().
 
 ## A simple text with two paragraphs:
 s <- String(paste("  First sentence.  Second sentence.  ",

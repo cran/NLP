@@ -36,6 +36,37 @@ function(x, ...)
 ## the token in a single sentence) and return spans/features or simple
 ## annotations (but do not provide ids themselves).
 
+Simple_Para_Token_Annotator <-
+function(f, description = NULL, classes = NULL)
+{
+    ## f should be a simple paragraph tokenizer, which takes a string s
+    ## representing the whole text, and returns the spans of the
+    ## paragraphs in s, or a simple annotation with these spans and
+    ## (possibly) additional features.
+    
+    default <- "Simple_Para_Token_Annotator"
+    classes <- .classes_with_default(classes, default)
+
+    g <- function(s, a = Annotation()) {
+        s <- as.String(s)
+        y <- f(s)
+        n <- length(y)
+        id <- .seq_id(.next_id(a$id), n)
+        type <- rep.int("paragraph", n)
+        if(is.Annotation(y)) {
+            ## Could check whether ids are really missing.
+            y$id <- id
+            y$type <- type              # Just making sure ...
+        } else if(is.Span(y)) {
+            y <- as.Annotation(y, id = id, type = type)
+        } else
+            stop("Invalid result from underlying paragraph tokenizer.")
+        y
+    }
+
+    Annotator(g, description, classes)
+}
+
 Simple_Sent_Token_Annotator <-
 function(f, description = NULL, classes = NULL)
 {
@@ -43,6 +74,11 @@ function(f, description = NULL, classes = NULL)
     ## representing the whole text, and returns the spans of the
     ## sentences in s, or a simple annotation with these spans and
     ## (possibly) additional features.
+
+    ## Note that in case paragraph annotations are available, we
+    ## (currently) do not split the whole text into paragraphs before
+    ## performing sentence tokenization.  Instead, we add a sentence
+    ## constituents feature for the paragraphs.
 
     default <- "Simple_Sent_Token_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -61,6 +97,14 @@ function(f, description = NULL, classes = NULL)
             y <- as.Annotation(y, id = id, type = type)
         } else
             stop("Invalid result from underlying sentence tokenizer.")
+
+        if(length(i <- which(a$type == "paragraph"))) {
+            a <- a[i]
+            a$features <- lapply(annotations_in_spans(y, a),
+                                 function(e) list(constituents = e$id))
+            y <- c(y, a)
+        }
+
         y
     }
 
@@ -269,6 +313,31 @@ function(f, description = NULL, classes = NULL)
     Annotator(g, description, classes)
 }
 
+Simple_Stem_Annotator <-
+function(f, description = NULL, classes = NULL)
+{
+    ## f should be a simple stemmer, which takes a character vector of
+    ## word tokens and returns the corresponding word stems.
+
+    ## The generated annotator simply computes an annotation for the
+    ## word tokens with the stem features obtained from the stemmer.
+
+    default <- "Simple_Stem_Annotator"
+    classes <- .classes_with_default(classes, default)
+
+    g <- function(s, a) {
+        s <- as.String(s)
+
+        a <- a[a$type == "word"]
+
+        a$features <- .simple_feature_map(f(s[a]), "stem")
+
+        a
+    }
+
+    Annotator(g, description, classes)
+}
+    
 sentence_constituents <-
 function(a)
 {

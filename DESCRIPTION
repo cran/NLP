@@ -1,13 +1,13 @@
 Package: NLP
-Version: 0.1-0
-Title: NLP Infrastructure
+Version: 0.1-1
+Title: Natural Language Processing Infrastructure
 Authors@R: person("Kurt", "Hornik", role = c("aut", "cre"),
                   email = "Kurt.Hornik@R-project.org")
 Description: Basic classes and methods for Natural Language Processing.
 License: GPL-2
-Packaged: 2013-08-17 17:51:48 UTC; hornik
+Packaged: 2014-01-25 18:18:34 UTC; hornik
 Author: Kurt Hornik [aut, cre]
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-08-17 19:57:45
+Date/Publication: 2014-01-25 19:24:05
