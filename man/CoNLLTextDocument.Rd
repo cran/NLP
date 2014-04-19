@@ -30,7 +30,7 @@ CoNLLTextDocument(con, encoding = "unknown", meta = list())
   using \code{\link{scan}()}.  From this, a suitable representation of
   the provided information is obtained, and returned as a CoNLL text
   document object inheriting from classes \code{"CoNLLTextDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 
   There are methods for generics \code{\link{words}},
   \code{\link{sents}}, \code{\link{tagged_words}},
@@ -41,9 +41,12 @@ CoNLLTextDocument(con, encoding = "unknown", meta = list())
 }
 \value{
   An object inheriting from \code{"CoNLLTextDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 }
 \seealso{
+  \code{\link{TextDocument}} for basic information on the text document
+  infrastructure employed by package \pkg{NLP}.
+
   \url{http://ifarm.nl/signll/conll/} for general information about
   CoNLL (Conference on Natural Language Learning), the yearly meeting of
   the Special Interest Group on Natural Language Learning of the

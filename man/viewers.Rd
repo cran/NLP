@@ -28,27 +28,6 @@ parsed_paras(x, ...)
   \item{x}{a text document object.}
   \item{...}{further arguments to be passed to or from methods.}
 }
-\details{
-  \emph{Text documents} are documents containing (natural language)
-  text.  In packages which employ the infrastructure provided by package
-  \pkg{NLP}, such documents are represented via the virtual S3 class
-  \code{"TextDocument"}: such packages then provide S3 text document
-  classes extending the virtual base class (such as the
-  \code{\link{AnnotatedPlainTextDocument}} objects provided by package
-  \pkg{NLP} itself).
-
-  All extension classes must provide an \code{\link{as.character}}
-  method which extracts the natural language text in documents of the
-  respective classes in a \dQuote{suitable} (not necessarily structured)
-  form.
-
-  In addition, the infrastructure features the above generic functions
-  \code{words()}, \code{sents()}, etc., for which extension classes can
-  provide methods giving a structured view of the text contained in
-  documents of these classes (returning, e.g., a character vector with
-  the word tokens in these documents, and a list of such character
-  vectors).
-}
 \value{
   For \code{words()}, a character vector with the word tokens in the
   document.
@@ -79,4 +58,8 @@ parsed_paras(x, ...)
   For \code{parsed_paras()}, a list of lists of \code{\link{Tree}}
   objects giving the parse trees for each sentence in the document,
   grouped according to the paragraphs in the document.
+}
+\seealso{
+  \code{\link{TextDocument}} for basic information on the text document
+  infrastructure employed by package \pkg{NLP}.
 }

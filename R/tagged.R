@@ -68,6 +68,14 @@ function(x, ...)
     invisible(x)
 }
 
+content.TaggedTextDocument <-
+function(x)
+    x$content
+
+meta.TaggedTextDocument <-
+function(x, tag = NULL, ...)
+    if(is.null(tag)) x$meta else x$meta[[tag]]
+
 ## <NOTE>
 ## It would be nice if the as.character() method could "suitably"
 ## detokenize the word tokens into sentences.  But this requires

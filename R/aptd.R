@@ -32,10 +32,13 @@ function(x, ...)
     invisible(x)
 }
 
-## <TODO>
-## Provide a content extractor eventually:
-## In particular, once we know whether/where to capitalize ...
-## </TODO>
+content.AnnotatedPlainTextDocument <-
+function(x)
+    x$content
+
+meta.AnnotatedPlainTextDocument <-
+function(x, tag = NULL, ...)
+    if(is.null(tag)) x$meta else x$meta[[tag]]
 
 as.character.AnnotatedPlainTextDocument <-
 function(x, ...)

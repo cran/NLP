@@ -34,6 +34,14 @@ function(x, ...)
     invisible(x)
 }
 
+content.CoNLLTextDocument <-
+function(x)
+    x$content
+
+meta.CoNLLTextDocument <-
+function(x, tag = NULL, ...)
+    if(is.null(tag)) x$meta else x$meta[[tag]]
+
 as.character.CoNLLTextDocument <-
 words.CoNLLTextDocument <-
 function(x, ...)

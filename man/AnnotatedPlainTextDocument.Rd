@@ -20,7 +20,7 @@ annotations(x)
     \code{"AnnotatedPlainTextDocument"}.
   }
   \item{annotations}{an \code{\link{Annotation}} object with annotations
-    for \code{x}, or a list of such annotations.}
+    for \code{x}, or a list of such objects.}
   \item{meta}{a named or empty list of document metadata tag-value
     pairs.}
 }
@@ -34,7 +34,7 @@ annotations(x)
   with the text being annotated using
   \code{AnnotatedPlainTextDocument()}, which returns an object
   inheriting from \code{"AnnotatedPlainTextDocument"} and
-  \code{"TextDocument"}, from which the text and collection of
+  \code{"\link{TextDocument}"}, from which the text and collection of
   annotations can be obtained using, respectively,
   \code{\link{as.character}} and \code{annotations}.
 
@@ -51,9 +51,13 @@ annotations(x)
 }
 \value{
   For \code{AnnotatedPlainTextDocument()}, an object inheriting from
-  \code{"AnnotatedPlainTextTextDocument"} and \code{"TextDocument"}.
+  \code{"AnnotatedPlainTextTextDocument"} and \code{"\link{TextDocument}"}.
 
   For \code{annotations()}, a list of \code{\link{Annotation}} objects.
+}
+\seealso{
+  \code{\link{TextDocument}} for basic information on the text document
+  infrastructure employed by package \pkg{NLP}.
 }
 \examples{
 ## Use a pre-built annotated plain text document obtained by employing an

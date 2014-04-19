@@ -45,7 +45,7 @@ Annotator(function(s, a = Annotation()) {
               n <- length(spans)
               ## Need n consecutive ids, starting with the next "free"
               ## one:
-              from <- if(!length(id <- a$id)) 1L else max(id) + 1L
+              from <- next_id(a$id)
               Annotation(seq(from = from, length.out = n),
                          rep.int("paragraph", n),
                          spans$start,

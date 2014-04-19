@@ -1,3 +1,7 @@
+importFrom("utils", "head", "tail")
+
+export("content", "content<-", "meta", "meta<-")
+
 export("String", "as.String", "is.String")
 S3method("[", "String")
 S3method("print", "String")
@@ -54,6 +58,8 @@ export("Simple_Para_Token_Annotator",
        "Simple_Chunk_Annotator",
        "Simple_Stem_Annotator")
 
+export("next_id", "single_feature")
+
 export("Regexp_Tokenizer",
        "blankline_tokenizer",
        "whitespace_tokenizer",
@@ -70,8 +76,10 @@ export("words", "sents", "paras",
        "parsed_sents", "parsed_paras")
 
 export("AnnotatedPlainTextDocument", "annotations")
-S3method("as.character", "AnnotatedPlainTextDocument")
 S3method("print", "AnnotatedPlainTextDocument")
+S3method("content", "AnnotatedPlainTextDocument")
+S3method("meta", "AnnotatedPlainTextDocument")
+S3method("as.character", "AnnotatedPlainTextDocument")
 S3method("words", "AnnotatedPlainTextDocument")
 S3method("sents", "AnnotatedPlainTextDocument")
 S3method("paras", "AnnotatedPlainTextDocument")
@@ -83,8 +91,10 @@ S3method("parsed_sents", "AnnotatedPlainTextDocument")
 S3method("parsed_paras", "AnnotatedPlainTextDocument")
 
 export("CoNLLTextDocument")
-S3method("as.character", "CoNLLTextDocument")
 S3method("print", "CoNLLTextDocument")
+S3method("content", "CoNLLTextDocument")
+S3method("meta", "CoNLLTextDocument")
+S3method("as.character", "CoNLLTextDocument")
 S3method("words", "CoNLLTextDocument")
 S3method("sents", "CoNLLTextDocument")
 S3method("tagged_words", "CoNLLTextDocument")
@@ -92,8 +102,10 @@ S3method("tagged_sents", "CoNLLTextDocument")
 S3method("chunked_sents", "CoNLLTextDocument")
 
 export("TaggedTextDocument")
-S3method("as.character", "TaggedTextDocument")
 S3method("print", "TaggedTextDocument")
+S3method("content", "TaggedTextDocument")
+S3method("meta", "TaggedTextDocument")
+S3method("as.character", "TaggedTextDocument")
 S3method("words", "TaggedTextDocument")
 S3method("sents", "TaggedTextDocument")
 S3method("paras", "TaggedTextDocument")
@@ -102,8 +114,10 @@ S3method("tagged_sents", "TaggedTextDocument")
 S3method("tagged_paras", "TaggedTextDocument")
 
 export("WordListDocument")
-S3method("as.character", "WordListDocument")
 S3method("print", "WordListDocument")
+S3method("content", "WordListDocument")
+S3method("meta", "WordListDocument")
+S3method("as.character", "WordListDocument")
 S3method("words", "WordListDocument")
 
 export("Penn_Treebank_POS_tags")

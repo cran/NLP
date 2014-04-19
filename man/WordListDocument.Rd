@@ -22,12 +22,16 @@ WordListDocument(con, encoding = "unknown", meta = list())
   collections of words from connections for which each line provides one
   word, with blank lines ignored, and returns a word list document
   object which inherits from classes \code{"WordListDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 
   The words can be extracted using the \code{\link{words}} and
   \code{\link{as.character}} methods for class \code{"WordListDocument"}.
 }
 \value{
   An object inheriting from \code{"WordListDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 }  
+\seealso{
+  \code{\link{TextDocument}} for basic information on the text document
+  infrastructure employed by package \pkg{NLP}.
+}

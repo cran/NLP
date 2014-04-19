@@ -5,7 +5,7 @@
 Annotator <-
 function(f, description = NULL, classes = NULL)
 {
-    if(!identical(names(formals(function(s, a) NULL)), c("s", "a")))
+    if(!identical(names(formals(f)), c("s", "a")))
         stop("Annotators must have formals 's' and 'a'.")
     class(f) <- .classes_with_default(classes, "Annotator")
     attr(f, "description") <- description
@@ -51,7 +51,7 @@ function(f, description = NULL, classes = NULL)
         s <- as.String(s)
         y <- f(s)
         n <- length(y)
-        id <- .seq_id(.next_id(a$id), n)
+        id <- .seq_id(next_id(a$id), n)
         type <- rep.int("paragraph", n)
         if(is.Annotation(y)) {
             ## Could check whether ids are really missing.
@@ -87,7 +87,7 @@ function(f, description = NULL, classes = NULL)
         s <- as.String(s)
         y <- f(s)
         n <- length(y)
-        id <- .seq_id(.next_id(a$id), n)
+        id <- .seq_id(next_id(a$id), n)
         type <- rep.int("sentence", n)
         if(is.Annotation(y)) {
             ## Could check whether ids are really missing.
@@ -151,7 +151,7 @@ function(f, description = NULL, classes = NULL)
                      a$start[i] - 1L)
             n <- sapply(y, length)
             id <- Map(.seq_id,
-                      .next_id(a$id) + c(0L, cumsum(head(n, -1L))),
+                      next_id(a$id) + c(0L, cumsum(head(n, -1L))),
                       n)
             type <- Map(rep.int, "word", n)
             y <- Map(function(u, id, type) {
@@ -164,7 +164,7 @@ function(f, description = NULL, classes = NULL)
             y <- Map(`+`, y, a$start[i] - 1L) # Add sentence offsets.
             n <- sapply(y, length)
             id <- Map(.seq_id,
-                      .next_id(a$id) + c(0L, cumsum(head(n, -1L))),
+                      next_id(a$id) + c(0L, cumsum(head(n, -1L))),
                       n)
             type <- Map(rep.int, "word", n)
             y <- Map(function(u, id, type)
@@ -175,7 +175,7 @@ function(f, description = NULL, classes = NULL)
 
         ## Constituent features for the sentences.
         a <- a[i]
-        a$features <- .simple_feature_map(id, "constituents")
+        a$features <- lapply(id, single_feature, "constituents")
 
         ## Combine sentence annotation with constituent features and the
         ## word token annotations.
@@ -211,7 +211,7 @@ function(f, description = NULL, classes = NULL)
 
         y <- lapply(s[a], f)
         if(all(sapply(y, is.character)))
-            features <- .simple_feature_map(unlist(y), "POS")
+            features <- lapply(unlist(y), single_feature, "POS")
         else if(all(sapply(y, is.list)))
             features <- unlist(y, recursive = FALSE)
         else 
@@ -260,7 +260,7 @@ function(f, description = NULL, classes = NULL)
                     })
                         
         y <- do.call(c, y)
-        y$id <- .seq_id(.next_id(a$id), length(y))
+        y$id <- .seq_id(next_id(a$id), length(y))
 
         y
     }        
@@ -299,7 +299,7 @@ function(f, description = NULL, classes = NULL)
                     function(e)
                     f(s[e], sapply(e$features, `[[`, "POS")))
         if(all(sapply(y, is.character)))
-            features <- .simple_feature_map(unlist(y), "chunk_tag")
+            features <- lapply(unlist(y), single_feature, "chunk_tag")
         else if(all(sapply(y, is.list)))
             features <- unlist(y, recursive = FALSE)
         else 
@@ -330,7 +330,7 @@ function(f, description = NULL, classes = NULL)
 
         a <- a[a$type == "word"]
 
-        a$features <- .simple_feature_map(f(s[a]), "stem")
+        a$features <- lapply(f(s[a]), single_feature, "stem")
 
         a
     }
@@ -363,31 +363,33 @@ function(a)
     constituents
 }
 
-.max_id <-
-function(id)
-    if(!length(id)) 0L else max(id)
-
-.next_id <-
+next_id <-
 function(id)
     .max_id(id) + 1L
+
+single_feature <-
+function(value, tag)
+    setNames(list(value), tag)
+
+.max_id <-
+function(id)
+{
+    id <- id[!is.na(id)]
+    if(!length(id)) 0L else max(id)
+}
 
 .seq_id <-
 function(f, l)
     as.integer(seq(from = f, length.out = l))
+
+.classes_with_default <-
+function(classes, default)
+    c(classes[classes != default], default)
 
 .simple_feature_map <-
 function(x, tag)
 {
     ## Turn a sequence of values x into a list of feature maps with
     ## given tag and respective values in x.
-    lapply(x,
-           function(u) {
-               v <- list(u)
-               names(v) <- tag
-               v
-           })
+    lapply(x, single_feature, tag)
 }
-
-.classes_with_default <-
-function(classes, default)
-    c(classes[classes != default], default)

@@ -7,11 +7,6 @@ function(con, encoding = "unknown", meta = list())
     doc
 }
 
-as.character.WordListDocument <-
-words.WordListDocument <-
-function(x, ...)
-    x$content
-
 print.WordListDocument <-
 function(x, ...)
 {
@@ -19,4 +14,16 @@ function(x, ...)
                        length(x$content)))
     invisible(x)
 }
-               
+
+content.WordListDocument <-
+function(x)
+    x$content
+
+meta.WordListDocument <-
+function(x, tag = NULL, ...)
+    if(is.null(tag)) x$meta else x$meta[[tag]]
+
+as.character.WordListDocument <-
+words.WordListDocument <-
+function(x, ...)
+    x$content

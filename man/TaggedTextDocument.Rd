@@ -46,7 +46,7 @@ TaggedTextDocument(con, encoding = "unknown",
   this, a suitable representation of the provided collection of
   POS-tagged words is obtained, and returned as a tagged text document
   object inheriting from classes \code{"TaggedTextDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 
   There are methods for generics \code{\link{words}},
   \code{\link{sents}}, \code{\link{paras}}, \code{\link{tagged_words}},
@@ -57,7 +57,7 @@ TaggedTextDocument(con, encoding = "unknown",
 }
 \value{
   An object inheriting from \code{"TaggedTextDocument"} and
-  \code{"TextDocument"}.
+  \code{"\link{TextDocument}"}.
 }
 \seealso{
   \url{http://nltk.github.com/nltk_data/packages/corpora/brown.zip}
