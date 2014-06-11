@@ -36,6 +36,10 @@ content.AnnotatedPlainTextDocument <-
 function(x)
     x$content
 
+`content<-.AnnotatedPlainTextDocument` <-
+function(x, value)
+    stop("content modification is not possible for AnnotatedPlainTextDocument objects")
+
 meta.AnnotatedPlainTextDocument <-
 function(x, tag = NULL, ...)
     if(is.null(tag)) x$meta else x$meta[[tag]]

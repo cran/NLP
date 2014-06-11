@@ -78,6 +78,7 @@ export("words", "sents", "paras",
 export("AnnotatedPlainTextDocument", "annotations")
 S3method("print", "AnnotatedPlainTextDocument")
 S3method("content", "AnnotatedPlainTextDocument")
+S3method("content<-", "AnnotatedPlainTextDocument")
 S3method("meta", "AnnotatedPlainTextDocument")
 S3method("as.character", "AnnotatedPlainTextDocument")
 S3method("words", "AnnotatedPlainTextDocument")
@@ -121,3 +122,15 @@ S3method("as.character", "WordListDocument")
 S3method("words", "WordListDocument")
 
 export("Penn_Treebank_POS_tags")
+
+export("parse_IETF_language_tag")
+
+export("parse_ISO_8601_datetime")
+S3method("[", "ISO_8601_datetime")
+S3method("$", "ISO_8601_datetime")
+S3method("as.Date", "ISO_8601_datetime")
+S3method("as.POSIXct", "ISO_8601_datetime")
+S3method("as.POSIXlt", "ISO_8601_datetime")
+S3method("as.data.frame", "ISO_8601_datetime")
+S3method("as.matrix", "ISO_8601_datetime")
+S3method("print", "ISO_8601_datetime")
