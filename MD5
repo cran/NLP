@@ -1,7 +1,7 @@
-b67cdfaedeb3d2ddf532f174126c6d70 *DESCRIPTION
+e53f6e304e27be92cc1d74536129b0f7 *DESCRIPTION
 26f441f91b5b98f290c891993e906930 *NAMESPACE
 648d44719d76e6868e9c8222ca326a3d *R/annotate.R
-26b92ac01d16568fb57b3d740dd61cbb *R/annotation.R
+39cbdb9c94ad382bba14e6f68a86b707 *R/annotation.R
 81afda9059171d247710587c810ba3e3 *R/annotators.R
 5c0f26fea8888215db08fefe419ae94c *R/aptd.R
 3fe76aaaf9748e261eeded54df43c6d5 *R/conll.R
@@ -10,7 +10,7 @@ bbfa26d7aa706b85df6429664c7f261e *R/datetime.R
 5aea6066c1f4019d43418febbde7daa3 *R/language.R
 adec111518b1a0ef2a33eb1afc19439b *R/span.R
 19db24609d6864dd635aac37f6ecf764 *R/string.R
-bb6a4b53e0da0d97e4803a8e34e4cf67 *R/sysdata.rda
+412c9a050a447c9369bd81caeb1c2007 *R/sysdata.rda
 cad63a19d36c5abb89c209001b4b832f *R/tagged.R
 03553b57ab0e75d3aeb2c80d8ca91988 *R/tokenize.R
 52dd402b908d8645f58ce77c7c3ce207 *R/tree.R
@@ -18,7 +18,7 @@ cad63a19d36c5abb89c209001b4b832f *R/tagged.R
 896858174ae482b842ecbec6f047900a *R/wordlist.R
 ab4213ecefa3f095dbb8d4132a284c21 *inst/texts/stanford.rds
 a8740009f568306aca5f131ebdade9cd *man/AnnotatedPlainTextDocument.Rd
-8a77659ef09ae9a93acc25a1827b3915 *man/Annotation.Rd
+7edd2eebd52a43f181a639ff7989732b *man/Annotation.Rd
 3083a616e8d66745160dd97123bd792e *man/Annotator.Rd
 17f23063250951c2d10c7877cad028b1 *man/CoNLLTextDocument.Rd
 f3dea9719a2c8de2105db141ae7b7bd5 *man/Span.Rd

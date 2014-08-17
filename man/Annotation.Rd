@@ -68,7 +68,10 @@ is.Annotation(x)
   \sQuote{features}.
 
   There are several additional methods for class \code{"Annotation"}:
-  \code{print} and \code{format}; \code{c} combines annotations;
+  \code{print} and \code{format} (which both have a \code{values}
+  argument which if \code{FALSE} suppresses indicating the feature map
+  values);
+  \code{c} combines annotations; 
   \code{merge} merges annotations by combining the feature lists of
   annotations with otherwise identical slots; \code{subset} allows
   subsetting by expressions involving the slot names; and \code{as.list}

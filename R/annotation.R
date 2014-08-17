@@ -189,11 +189,40 @@ function(x, incomparables = FALSE, ...)
 }
 
 format.Annotation <-
-function(x, ...)
+function(x, values = TRUE, ...)
 {
-    x <- as.data.frame(x)
-    x$features <- lapply(x$features, .format_feature_map)
-    NextMethod("format", x, ...)
+    if(!length(x)) return(character())
+    y <- .format_Annotation_without_features(x)
+    wy <- nchar(y[1L], type = "width")
+    wf <- max(16L, 0.95 * getOption("width") - wy)
+    collapse <- format("\n", width = wy + 2L)
+    features <- lapply(x$features, function(e) {
+        if(!(l <- length(e))) return("")
+        s <- if(values) .format_feature_map(e) else names(e)
+        s <- paste0(s, c(rep_len(",", l - 1L), ""))
+        w <- nchar(strwrap(paste(gsub(".", "X", s), collapse = " "),
+                           width = wf))
+        v <- c(0L, head(cumsum(w + 1L), -1L))
+        f <- v + 1L
+        t <- v + w
+        paste(substring(paste(s, collapse = " "), f, t),
+              collapse = collapse)
+    })
+    paste0(y, c("features", features), collapse = "\n")
+}
+
+inspect.Annotation <-
+function(x)
+{
+    x$features <-
+        vapply(x$features,
+               function(e) {
+                   if(length(s <- .format_feature_map(e))) {
+                       paste(sprintf("\n  %s", s), collapse = "")
+                   } else NA_character_
+               },
+               "")
+    write.dcf(x, keep.white = "features")
 }
 
 length.Annotation <-
@@ -220,9 +249,9 @@ function(x)
     NULL
 
 print.Annotation <-
-function(x, ...)
+function(x, values = TRUE, ...)
 {
-    print.data.frame(format(x), ..., right = FALSE, row.names = FALSE)    
+    writeLines(format(x, values = values))
     invisible(x)
 }
 
@@ -241,20 +270,43 @@ unique.Annotation <-
 function(x, incomparables = FALSE, ...)
     x[!duplicated(x)]
     
+.format_Annotation_without_features <-
+function(x)
+{
+    sprintf(" %s %s %s %s ",
+            .format_values_with_header(x$id, "id", "right"),
+            .format_values_with_header(x$type, "type", "left"),
+            .format_values_with_header(x$start, "start", "right"),
+            .format_values_with_header(x$end, "end", "right"))
+}
+
+.format_values_with_header <-
+function(v, h, justify = c("left", "right"))
+{
+    justify <- match.arg(justify)
+    width <- max(nchar(h), nchar(v))
+    len <- length(v)
+    fmt <- sprintf("%%%s%ds",
+                   c("-", rep.int(if(justify == "left") "-" else "", len)),
+                   rep.int(width, len + 1L))
+    sprintf(fmt, c(h, v))
+}
 
 ## Try formatting feature maps nicely.
 ## Similar to what we do in package 'sets', I guess ...
 .format_feature_map <-
 function(x, ...)
 {
-    if(!length(x)) return("")
+    if(!length(x)) return(character())
     .fmt <- function(v) {
         ## Formatter for a single value.
         if(is.object(v))
             sprintf("<<%s>>", class(v)[1L])
         else if(is.array(v))
             sprintf("<<array,%s>>", paste(dim(v), collapse = ","))
-        else if(is.atomic(v) && (length(v) == 1L)) {
+        else if(is.character(v) && (length(v) == 1L)) {
+            if(nchar(v) <= 32L) v else "<<character,1>>"
+        } else if(is.atomic(v) && (length(v) == 1L)) {
             ## <FIXME>
             ## Should this take ... args?
             ## Also, might want to ensure this does not get too long.
@@ -267,7 +319,7 @@ function(x, ...)
         else
             "<<???>>"
     }
-    paste(names(x), sapply(x, .fmt), sep = "=", collapse = " ")
+    sprintf("%s=%s", names(x), vapply(x, .fmt, ""))
 }
             
 annotations_in_spans <-
