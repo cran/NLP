@@ -242,6 +242,7 @@ function(f, description = NULL, classes = NULL)
     g <- function(s, a) {
         s <- as.String(s)
 
+        i <- next_id(a$id)
         a <- annotations_in_spans(a[a$type == "word"],
                                   a[a$type == "sentence"])
         if(!length(a))
@@ -260,10 +261,10 @@ function(f, description = NULL, classes = NULL)
                     })
                         
         y <- do.call(c, y)
-        y$id <- .seq_id(next_id(a$id), length(y))
+        y$id <- .seq_id(i, length(y))
 
         y
-    }        
+    }
     
     Annotator(g, description, classes)
 }
