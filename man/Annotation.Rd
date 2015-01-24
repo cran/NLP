@@ -53,9 +53,9 @@ is.Annotation(x)
   single annotations.  They have class \code{"Annotation"} and, as they
   contain character spans, also inherit from class \code{"\link{Span}"}.
   Span objects can be coerced to annotation objects via
-  \code{as.Annotation} which allows to specify ids and types (using the
+  \code{as.Annotation()} which allows to specify ids and types (using the
   default values sets these to missing), and annotation objects can be
-  coerced to span objects using \code{\link{as.Span}}.
+  coerced to span objects using \code{\link{as.Span}()}.
 
   The features of a single annotation are represented as named or empty
   lists.
@@ -68,16 +68,17 @@ is.Annotation(x)
   \sQuote{features}.
 
   There are several additional methods for class \code{"Annotation"}:
-  \code{print} and \code{format} (which both have a \code{values}
+  \code{print()} and \code{format()} (which both have a \code{values}
   argument which if \code{FALSE} suppresses indicating the feature map
   values);
-  \code{c} combines annotations; 
-  \code{merge} merges annotations by combining the feature lists of
-  annotations with otherwise identical slots; \code{subset} allows
-  subsetting by expressions involving the slot names; and \code{as.list}
-  and \code{as.data.frame} coerce, respectively, to lists (of single
-  annotation objects) and data frames (with annotations and slots
-  corresponding to rows and columns).
+  \code{c()} combines annotations; 
+  \code{merge()} merges annotations by combining the feature lists of
+  annotations with otherwise identical slots;
+  \code{subset()} allows subsetting by expressions involving the slot
+  names; and
+  \code{as.list()} and \code{as.data.frame()} coerce, respectively, to
+  lists (of single annotation objects) and data frames (with annotations
+  and slots corresponding to rows and columns).
 
   \code{Annotation()} creates annotation objects from the given sequences
   of slot values: those not \code{NULL} must all have the same length
@@ -94,7 +95,7 @@ is.Annotation(x)
   object (of class \code{"Annotation"} also inheriting from class
   \code{"Span"}).
 
-  For \code{is.Annotation}, a logical.
+  For \code{is.Annotation()}, a logical.
 }
 \examples{
 ## A simple text.

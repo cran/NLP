@@ -9,10 +9,10 @@ CoNLLTextDocument(con, encoding = "unknown", meta = list())
 }
 \arguments{
   \item{con}{a connection object or a character string.
-    See \code{\link{scan}} for details.
+    See \code{\link{scan}()} for details.
   }
   \item{encoding}{encoding to be assumed for input strings.
-    See \code{\link{scan}} for details.
+    See \code{\link{scan}()} for details.
   }
   \item{meta}{a named or empty list of document metadata tag-value
     pairs.}
@@ -32,10 +32,14 @@ CoNLLTextDocument(con, encoding = "unknown", meta = list())
   document object inheriting from classes \code{"CoNLLTextDocument"} and
   \code{"\link{TextDocument}"}.
 
-  There are methods for generics \code{\link{words}},
-  \code{\link{sents}}, \code{\link{tagged_words}},
-  \code{\link{tagged_sents}}, and \code{\link{chunked_sents}} (as well
-  as \code{\link{as.character}}) and class \code{"CoNLLTextDocument"},
+  There are methods for generics
+  \code{\link{words}()},
+  \code{\link{sents}()},
+  \code{\link{tagged_words}()},
+  \code{\link{tagged_sents}()}, and
+  \code{\link{chunked_sents}()}
+  (as well as \code{\link{as.character}()})
+  and class \code{"CoNLLTextDocument"},
   which should be used to access the text in such text document
   objects.
 }

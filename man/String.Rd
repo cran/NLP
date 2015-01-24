@@ -13,7 +13,7 @@ is.String(x)
 }
 \arguments{
   \item{x}{a character vector with the appropriate encoding information
-    for \code{String}; an arbitrary \R object otherwise.
+    for \code{String()}; an arbitrary \R object otherwise.
   }
 }
 \details{
@@ -26,14 +26,14 @@ is.String(x)
   \code{"\link{Span}"} or a list of such objects returns a character
   vector of substrings with the respective spans, or a list thereof.
 
-  Further methods may be added in the future.
+  Additional methods may be added in the future.
 
   \code{String()} creates a string object from a given character vector,
   taking the first element of the vector and converting it to UTF-8
   encoding.
 
-  \code{as.String()} coerces to a string object by calling \code{String}
-  on the result of the \code{\link{toString}} generic.
+  \code{as.String()} coerces to a string object by calling \code{String()}
+  on the result of the \code{\link{toString}()} generic.
 
   \code{is.String()} tests whether an object inherits from class
   \code{"String"}.

@@ -37,10 +37,10 @@ is.Span(x)
 
   Span objects provide sequences (allowing positional access) of single
   spans.  They have class \code{"Span"}.  Span objects can be coerced to
-  annotation objects via \code{\link{as.Annotation}} (which of course is
+  annotation objects via \code{\link{as.Annotation}()} (which of course is
   only appropriate provided that the spans are character spans of the
   natural language text being annotated), and annotation objects can be
-  coerced to span objects via \code{as.Span} (giving the character spans
+  coerced to span objects via \code{as.Span()} (giving the character spans
   of the annotations).
 
   Subscripting span objects via \code{[} extracts subsets of spans;
@@ -48,9 +48,10 @@ is.Span(x)
   of values of the named slot.
 
   There are several additional methods for class \code{"Span"}:
-  \code{print} and \code{format}; \code{c} combines spans, and
-  \code{as.list} and \code{as.data.frame} coerce, respectively, to lists
-  (of single span objects) and data frames (with spans and slots
+  \code{print()} and \code{format()};
+  \code{c()} combines spans, and
+  \code{as.list()} and \code{as.data.frame()} coerce, respectively, to
+  lists (of single span objects) and data frames (with spans and slots
   corresponding to rows and columns).  Finally, one can add a scalar and
   a span object (resulting in shifting the start and end positions by
   the scalar).

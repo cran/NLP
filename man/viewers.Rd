@@ -40,7 +40,7 @@ parsed_paras(x, ...)
 
   For \code{tagged_words()}, a character vector with the POS tagged word
   tokens in the document (i.e., the word tokens and their POS tags,
-  separated by \code{/}).
+  separated by \samp{/}).
 
   For \code{tagged_sents()}, a list of character vectors with the POS
   tagged word tokens in each sentence.

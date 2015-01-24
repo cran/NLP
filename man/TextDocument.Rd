@@ -13,11 +13,11 @@
   \code{\link{AnnotatedPlainTextDocument}} objects provided by package
   \pkg{NLP} itself).
 
-  All extension classes must provide an \code{\link{as.character}}
+  All extension classes must provide an \code{\link{as.character}()}
   method which extracts the natural language text in documents of the
   respective classes in a \dQuote{suitable} (not necessarily structured)
-  form, as well as \code{\link{content}} and \code{\link{meta}} methods
-  for accessing the (possibly raw) document content and metadata.
+  form, as well as \code{\link{content}()} and \code{\link{meta}()}
+  methods for accessing the (possibly raw) document content and metadata.
 
   In addition, the infrastructure features the generic functions
   \code{\link{words}()}, \code{\link{sents}()}, etc., for which

@@ -15,15 +15,15 @@ Annotator(f, description = NULL, classes = NULL)
   \item{description}{a character string describing the annotator, or
     \code{NULL} (default).}
   \item{classes}{a character vector or \code{NULL} (default) giving
-    additional classes to be used for the created annotator object in
-    addition to \code{"Annotator"}.}
+    classes to be used for the created annotator object in addition to
+    \code{"Annotator"}.}
 }
 \details{
   \code{Annotator()} checks that the given annotator function has the
   appropriate formals, and returns an annotator object which inherits
   from the given classes and \code{"Annotator"}, and contains the given
   description (currently, as an attribute) to be used in the
-  \code{print} method for such objects.
+  \code{print()} method for such objects.
 }
 \value{
   An annotator object inheriting from the given classes and class
@@ -34,8 +34,8 @@ Annotator(f, description = NULL, classes = NULL)
   annotator objects based on function performing simple basic NLP tasks.
 
   Package \pkg{StanfordCoreNLP} available from the repository at
-  \url{http://datacube.wu.ac.at} which provides annotator generators for
-  annotator pipelines based on the Stanford CoreNLP tools.
+  \url{http://datacube.wu.ac.at} which provides generators for annotator
+  pipelines based on the Stanford CoreNLP tools.
 }
 \examples{
 ## Use blankline_tokenizer() for a simple paragraph token annotator:

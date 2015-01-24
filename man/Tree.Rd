@@ -16,7 +16,7 @@ Tree_apply(x, f, recursive = FALSE)
 \arguments{
   \item{value}{a (non-tree) node value of the tree.}
   \item{children}{a list giving the children of the tree.}
-  \item{x}{a tree object for the \code{format} method and
+  \item{x}{a tree object for the \code{format()} method and
     \code{Tree_apply()}; a character string for \code{Tree_parse()}.}
   \item{width}{a positive integer giving the target column for a
     single-line nested bracketting.}
@@ -46,10 +46,10 @@ Tree_apply(x, f, recursive = FALSE)
   subscripting using names \code{value} and \code{children},
   respectively.
 
-  There is a \code{format} method for tree objects: this first tries a
+  There is a \code{format()} method for tree objects: this first tries a
   nested bracketting in a single line of the given width, and if this is
   not possible, produces a nested indented bracketting.  The
-  \code{print} method uses the \code{format} method, and hence its
+  \code{print()} method uses the \code{format} method, and hence its
   arguments to control the formatting.
 
   \code{Tree_parse()} reads nested brackettings into a tree object.

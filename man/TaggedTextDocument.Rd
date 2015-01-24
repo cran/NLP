@@ -14,10 +14,10 @@ TaggedTextDocument(con, encoding = "unknown",
 }
 \arguments{
   \item{con}{a connection object or a character string.
-    See \code{\link{readLines}} for details.
+    See \code{\link{readLines}()} for details.
   }
   \item{encoding}{encoding to be assumed for input strings.
-    See \code{\link{readLines}} for details.
+    See \code{\link{readLines}()} for details.
   }
   \item{word_tokenizer}{a function for obtaining the word token spans.}
   \item{sent_tokenizer}{a function for obtaining the sentence token
@@ -48,10 +48,15 @@ TaggedTextDocument(con, encoding = "unknown",
   object inheriting from classes \code{"TaggedTextDocument"} and
   \code{"\link{TextDocument}"}.
 
-  There are methods for generics \code{\link{words}},
-  \code{\link{sents}}, \code{\link{paras}}, \code{\link{tagged_words}},
-  \code{\link{tagged_sents}}, and \code{\link{tagged_paras}} (as well as
-  \code{\link{as.character}}) and class \code{"TaggedTextDocument"},
+  There are methods for generics
+  \code{\link{words}()},
+  \code{\link{sents}()},
+  \code{\link{paras}()},
+  \code{\link{tagged_words}()},
+  \code{\link{tagged_sents}()}, and
+  \code{\link{tagged_paras}()}
+  (as well as \code{\link{as.character}()})
+  and class \code{"TaggedTextDocument"},
   which should be used to access the text in such text document
   objects.
 }

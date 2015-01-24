@@ -21,15 +21,15 @@ wordpunct_tokenizer(s)
     \code{NULL} (default).}
   \item{invert}{a logical indicating whether to match separators between
     tokens.}
-  \item{...}{further arguments to be passed to \code{\link{gregexpr}}.}
+  \item{...}{further arguments to be passed to \code{\link{gregexpr}()}.}
   \item{s}{a \code{\link{String}} object, or something coercible to this
-    using \code{\link{as.String}} (e.g., a character string with
+    using \code{\link{as.String}()} (e.g., a character string with
     appropriate encoding information)}
 }
 \details{
   \code{Regexp_Tokenizer()} creates regexp tokenizers which use the
   given \code{pattern} and \code{...} arguments to match tokens or
-  separators between tokens via \code{\link{gregexpr}}, and then
+  separators between tokens via \code{\link{gregexpr}()}, and then
   transform the results of this into character spans of the tokens
   found.  The given \code{description} is currently kept as an
   attribute.

@@ -24,10 +24,10 @@
   One can subscript such ISO 8601 date/time objects using \code{[} and
   extract components using \code{$} (where missing components will
   result in \code{NA}s), and convert them to the standard R date/time
-  classes using \code{\link{as.Date}}, \code{\link{as.POSIXct}} and
-  \code{\link{as.POSIXlt}} (incomplete elements will convert to suitably
-  missing elements).  In addition, there are \code{print} and
-  \code{as.data.frame} methods for such objects.
+  classes using \code{\link{as.Date}()}, \code{\link{as.POSIXct}()} and
+  \code{\link{as.POSIXlt}()} (incomplete elements will convert to
+  suitably missing elements).  In addition, there are \code{print()} and
+  \code{as.data.frame()} methods for such objects.
 }
 \value{
   An object inheriting from class \code{"ISO_8601_datetime"} with the

@@ -27,8 +27,8 @@ Simple_Stem_Annotator(f, description = NULL, classes = NULL)
   \item{description}{a character string describing the annotator, or
     \code{NULL} (default).}
   \item{classes}{a character vector or \code{NULL} (default) giving
-    additional classes to be used for the created annotator object in
-    addition to the default ones (see \bold{Details}).}
+    classes to be used for the created annotator object in addition to
+    the default ones (see \bold{Details}).}
 }
 \details{
   The purpose of these functions is to facilitate the creation of

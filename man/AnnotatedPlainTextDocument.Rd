@@ -13,7 +13,7 @@ annotations(x)
 \arguments{
   \item{x}{
     For \code{AnnotatedPlainTextDocument()}, a \code{\link{String}}
-    object, or something coercible to this using \code{\link{as.String}}
+    object, or something coercible to this using \code{\link{as.String}()}
     (e.g., a character string with appropriate encoding information).
 
     For \code{annotations()}, an object inheriting from class
@@ -29,24 +29,29 @@ annotations(x)
   (\dQuote{sets}, implemented as lists) of objects with annotations for
   the text.
 
-  A typical workflow is to use \code{\link{annotate}} with suitable
-  annotator pipelines to obtain the annotations, and then combine these
-  with the text being annotated using
-  \code{AnnotatedPlainTextDocument()}, which returns an object
-  inheriting from \code{"AnnotatedPlainTextDocument"} and
-  \code{"\link{TextDocument}"}, from which the text and collection of
-  annotations can be obtained using, respectively,
-  \code{\link{as.character}} and \code{annotations}.
+  A typical workflow is to use \code{\link{annotate}()} with suitable
+  annotator pipelines to obtain the annotations, and then use
+  \code{AnnotatedPlainTextDocument()} to combine these with the text
+  being annotated.  This yields an object inheriting from
+  \code{"AnnotatedPlainTextDocument"} and \code{"\link{TextDocument}"},
+  from which the text and collection of annotations can be obtained
+  using, respectively, \code{\link{as.character}()} and
+  \code{annotations()}.
 
-  There are methods for generics \code{\link{words}},
-  \code{\link{sents}}, \code{\link{paras}}, \code{\link{tagged_words}},
-  \code{\link{tagged_sents}}, \code{\link{tagged_paras}},
-  \code{\link{chunked_sents}}, \code{\link{parsed_sents}} and
-  \code{\link{parsed_paras}} and class
-  \code{"AnnotatedPlainTextDocument"} providing structured views of the
-  text in such documents.  These all have an additional argument
-  \code{which} for specifying the annotation object to use (by default,
-  the first one is taken), and of course require the necessary
+  There are methods for generics
+  \code{\link{words}()},
+  \code{\link{sents}()},
+  \code{\link{paras}()},
+  \code{\link{tagged_words}()},
+  \code{\link{tagged_sents}()},
+  \code{\link{tagged_paras}()},
+  \code{\link{chunked_sents}()},
+  \code{\link{parsed_sents}()} and
+  \code{\link{parsed_paras}()}
+  and class \code{"AnnotatedPlainTextDocument"} providing structured
+  views of the text in such documents.  These all have an additional
+  argument \code{which} for specifying the annotation object to use (by
+  default, the first one is taken), and of course require the necessary
   annotations to be available in the annotation object used.
 }
 \value{
