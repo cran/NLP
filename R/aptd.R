@@ -1,7 +1,7 @@
 AnnotatedPlainTextDocument <-
-function(x, annotations, meta = list())
+function(s, annotations, meta = list())
 {
-    x <- as.String(x)
+    s <- as.String(s)
 
     ## Be nice.
     if(is.Annotation(annotations))
@@ -13,7 +13,7 @@ function(x, annotations, meta = list())
             stop("argument 'annotations' must give a positive number of Annotation objects")
     }
 
-    doc <- list(content = x, meta = meta, annotations = annotations)
+    doc <- list(content = s, meta = meta, annotations = annotations)
     class(doc) <- c("AnnotatedPlainTextDocument",
                     "PlainTextDocument",
                     "TextDocument")
@@ -21,16 +21,28 @@ function(x, annotations, meta = list())
     doc
 }
 
-print.AnnotatedPlainTextDocument <-
+format.AnnotatedPlainTextDocument <-
 function(x, ...)
-{
+{        
     annotations <- x$annotations
-    writeLines(sprintf("<<AnnotatedPlainTextDocument (annotations: %d, length(s): %s)>>",
-                       length(annotations),
-                       paste(sapply(annotations, length),
-                             collapse = "/")))
-    invisible(x)
+    c(.format_TextDocument(x),
+      sprintf("Annotations:  %d, length(s): %s",
+              length(annotations),
+              paste(sapply(annotations, length), collapse = "/")),
+      sprintf("Content:  chars: %d",
+              nchar(x$content)))
 }
+    
+## print.AnnotatedPlainTextDocument <-
+## function(x, ...)
+## {
+##     annotations <- x$annotations
+##     writeLines(sprintf("<<AnnotatedPlainTextDocument (annotations: %d, length(s): %s)>>",
+##                        length(annotations),
+##                        paste(sapply(annotations, length),
+##                              collapse = "/")))
+##     invisible(x)
+## }
 
 content.AnnotatedPlainTextDocument <-
 function(x)
@@ -40,9 +52,19 @@ function(x)
 function(x, value)
     stop("content modification is not possible for AnnotatedPlainTextDocument objects")
 
-meta.AnnotatedPlainTextDocument <-
-function(x, tag = NULL, ...)
-    if(is.null(tag)) x$meta else x$meta[[tag]]
+## meta.AnnotatedPlainTextDocument <-
+## function(x, tag = NULL, ...)
+##     if(is.null(tag)) x$meta else x$meta[[tag]]
+
+## `meta<-.AnnotatedPlainTextDocument` <-
+## function(x, tag = NULL, ..., value)
+## {
+##     if(is.null(tag))
+##         x$meta <- value
+##     else
+##         x$meta[[tag]] <- value
+##     x
+## }
 
 as.character.AnnotatedPlainTextDocument <-
 function(x, ...)
@@ -100,7 +122,7 @@ function(x, which = 1L, ...)
 }
 
 tagged_words.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, which = 1L, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
@@ -108,6 +130,8 @@ function(x, which = 1L, ...)
     a <- annotations(x)[[which]]
     ## Could check for word token annotations ...
     a <- a[a$type == "word"]
+    if(!is.null(map))
+        a <- .map_POS_tags_Annotation(a, map)
     .tagged_words_from_annotation_and_text(a, s)
 }
 
@@ -116,16 +140,18 @@ function(a, s)
 {
     ## Could check for POS tag features ...
     pos <- sapply(a$features, `[[`, "POS")
-    sprintf("%s/%s", s[a], pos)
+    Tagged_Token(s[a], pos)
 }
 
 tagged_sents.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, which = 1L, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
     a <- annotations(x)[[which]]
+    if(!is.null(map))
+        a <- .map_POS_tags_Annotation(a, map)
     .tagged_sents_from_annotation_and_text(a, s)
 }
 
@@ -139,12 +165,14 @@ function(a, s)
 }
 
 tagged_paras.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, which = 1L, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
     a <- annotations(x)[[which]]
+    if(!is.null(map))
+        a <- .map_POS_tags_Annotation(a, map)
     ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .tagged_sents_from_annotation_and_text, s)
@@ -201,4 +229,18 @@ function(x, which = 1L, ...)
                words <- s[a]
                chunk_tree_from_chunk_info(words, ptags, ctags)
            })
+}
+
+.map_POS_tags_Annotation <-
+function(x, map)
+{
+    map <- POS_tag_mapper(map, meta(x, "POS_tagset"))
+    x$features <-
+        lapply(x$features,
+               function(e) {
+                   if(!is.null(pos <- e$POS))
+                       e$POS <- map(pos)
+                   e
+               })
+    x
 }

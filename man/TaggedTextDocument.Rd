@@ -59,6 +59,16 @@ TaggedTextDocument(con, encoding = "unknown",
   and class \code{"TaggedTextDocument"},
   which should be used to access the text in such text document
   objects.
+
+  The methods for generics
+  \code{\link{tagged_words}()}, 
+  \code{\link{tagged_sents}()} and
+  \code{\link{tagged_paras}()}
+  provide a mechanism for mapping POS tags via the \code{map} argument,
+  see section \bold{Details} in the help page for
+  \code{\link{tagged_words}()} for more information.
+  The POS tagset used will be inferred from the \code{POS_tagset}
+  metadata element of the CoNLL-style text document.
 }
 \value{
   An object inheriting from \code{"TaggedTextDocument"} and
@@ -68,5 +78,9 @@ TaggedTextDocument(con, encoding = "unknown",
   \url{http://nltk.github.com/nltk_data/packages/corpora/brown.zip}
   which provides the W. N. Francis and H. Kucera Brown tagged word
   corpus as an archive of files which can be read in using
-  \code{TaggedWordDocument()}.
+  \code{TaggedTextDocument()}.
+
+  Package \pkg{tm.corpus.Brown} available from the repository at
+  \url{http://datacube.wu.ac.at} conveniently provides this corpus
+  as a \pkg{tm} \link[tm:VCorpus]{VCorpus} of tagged text documents.
 }

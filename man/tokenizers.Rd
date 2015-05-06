@@ -9,7 +9,7 @@
   separators between tokens.
 }
 \usage{
-Regexp_Tokenizer(pattern, description = NULL, invert = FALSE, ...)
+Regexp_Tokenizer(pattern, invert = FALSE, ..., meta = list())
 blankline_tokenizer(s)
 whitespace_tokenizer(s)
 wordpunct_tokenizer(s)
@@ -17,22 +17,21 @@ wordpunct_tokenizer(s)
 \arguments{
   \item{pattern}{a character string giving the regular expression to use
     for matching.}
-  \item{description}{a character string describing the tokenizer, or
-    \code{NULL} (default).}
   \item{invert}{a logical indicating whether to match separators between
     tokens.}
   \item{...}{further arguments to be passed to \code{\link{gregexpr}()}.}
+  \item{meta}{a named or empty list of tokenizer metadata tag-value
+    pairs.}
   \item{s}{a \code{\link{String}} object, or something coercible to this
     using \code{\link{as.String}()} (e.g., a character string with
     appropriate encoding information)}
 }
 \details{
-  \code{Regexp_Tokenizer()} creates regexp tokenizers which use the
+  \code{Regexp_Tokenizer()} creates regexp span tokenizers which use the
   given \code{pattern} and \code{...} arguments to match tokens or
   separators between tokens via \code{\link{gregexpr}()}, and then
   transform the results of this into character spans of the tokens
-  found.  The given \code{description} is currently kept as an
-  attribute.
+  found.
 
   \code{whitespace_tokenizer()} tokenizes by treating any sequence of
   whitespace characters as a separator.
@@ -45,11 +44,15 @@ wordpunct_tokenizer(s)
   characters.
 }
 \value{
-  \code{Regexp_Tokenizer()} returns the created regexp tokenizer.
+  \code{Regexp_Tokenizer()} returns the created regexp span tokenizer.
 
   \code{blankline_tokenizer()}, \code{whitespace_tokenizer()} and
   \code{wordpunct_tokenizer()} return the spans of the tokens found in
   \code{s}.
+}
+\seealso{
+  \code{\link{Span_Tokenizer}()} for general information on span
+  tokenizer objects.
 }
 \examples{
 ## A simple text.

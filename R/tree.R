@@ -47,12 +47,12 @@ function(x,
             brackets[2L])
 }
 
-print.Tree <-
-function(x, ...)
-{
-    writeLines(format(x, ...))
-    invisible(x)
-}
+## print.Tree <-
+## function(x, ...)
+## {
+##     writeLines(format(x, ...))
+##     invisible(x)
+## }
     
 Tree_parse <-
 function(x, brackets = c("(", ")"))

@@ -7,22 +7,19 @@
   of annotations for this text.
 }
 \usage{
-AnnotatedPlainTextDocument(x, annotations, meta = list())
+AnnotatedPlainTextDocument(s, annotations, meta = list())
 annotations(x)
 }
 \arguments{
-  \item{x}{
-    For \code{AnnotatedPlainTextDocument()}, a \code{\link{String}}
-    object, or something coercible to this using \code{\link{as.String}()}
-    (e.g., a character string with appropriate encoding information).
-
-    For \code{annotations()}, an object inheriting from class
-    \code{"AnnotatedPlainTextDocument"}.
-  }
+  \item{s}{a \code{\link{String}} object, or something coercible to this
+    using \code{\link{as.String}()} (e.g., a character string with
+    appropriate encoding information).}
   \item{annotations}{an \code{\link{Annotation}} object with annotations
     for \code{x}, or a list of such objects.}
   \item{meta}{a named or empty list of document metadata tag-value
     pairs.}
+  \item{x}{an object inheriting from class
+    \code{"AnnotatedPlainTextDocument"}.}
 }
 \details{
   Annotated plain text documents combine plain text with collections
@@ -53,6 +50,16 @@ annotations(x)
   argument \code{which} for specifying the annotation object to use (by
   default, the first one is taken), and of course require the necessary
   annotations to be available in the annotation object used.
+
+  The methods for generics
+  \code{\link{tagged_words}()},
+  \code{\link{tagged_sents}()} and
+  \code{\link{tagged_paras}()}
+  provide a mechanism for mapping POS tags via the \code{map} argument,
+  see section \bold{Details} in the help page for
+  \code{\link{tagged_words}()} for more information.
+  The POS tagset used will be inferred from the \code{POS_tagset}
+  metadata element of the annotation object used.
 }
 \value{
   For \code{AnnotatedPlainTextDocument()}, an object inheriting from
@@ -69,10 +76,10 @@ annotations(x)
 ## annotator pipeline from package 'StanfordCoreNLP', available from the
 ## repository at <http://datacube.wu.ac.at>, using the following code:
 ##   require("StanfordCoreNLP")
-##   x <- paste("Stanford University is located in California.",
+##   s <- paste("Stanford University is located in California.",
 ##              "It is a great university.")
 ##   p <- StanfordCoreNLP_Pipeline(c("pos", "lemma", "parse"))
-##   doc <- AnnotatedPlainTextDocument(x, p(x))
+##   doc <- AnnotatedPlainTextDocument(s, p(s))
 
 doc <- readRDS(system.file("texts", "stanford.rds", package = "NLP"))
 
@@ -85,6 +92,7 @@ a
 ## Structured views:
 sents(doc)
 tagged_sents(doc)
+tagged_sents(doc, map = Universal_POS_tags_map)
 parsed_sents(doc)
 
 ## Add (trivial) paragraph annotation:

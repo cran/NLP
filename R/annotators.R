@@ -3,29 +3,31 @@
 ## annotation. 
 
 Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     if(!identical(names(formals(f)), c("s", "a")))
         stop("Annotators must have formals 's' and 'a'.")
+    attr(f, "meta") <- meta
     class(f) <- .classes_with_default(classes, "Annotator")
-    attr(f, "description") <- description
     f
 }
 
-print.Annotator <-
+is.Annotator <-
+function(x)
+    inherits(x, "Annotator")
+
+format.Annotator <-
 function(x, ...)
 {
-    d <- attr(x, "description")
-    s <- c(sprintf("An annotator inheriting from classes\n  %s",
-                   paste(class(x), collapse = " ")),
-           if(is.null(d)) {
-               "with no additional description."
-           } else {
-               c("with description",
-                 strwrap(d, indent = 2L, exdent = 2L))
-           })
-    writeLines(s)
-    invisible(x)
+    d <- meta(x, "description")
+    c(sprintf("An annotator inheriting from classes\n  %s",
+              paste(class(x), collapse = " ")),
+      if(is.null(d)) {
+          "with no additional description."
+      } else {
+          c("with description",
+            strwrap(d, indent = 2L, exdent = 2L))
+      })
 }
 
 ## Annotator generators.
@@ -37,12 +39,14 @@ function(x, ...)
 ## annotations (but do not provide ids themselves).
 
 Simple_Para_Token_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple paragraph tokenizer, which takes a string s
     ## representing the whole text, and returns the spans of the
     ## paragraphs in s, or a simple annotation with these spans and
     ## (possibly) additional features.
+
+    force(f)
     
     default <- "Simple_Para_Token_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -64,11 +68,11 @@ function(f, description = NULL, classes = NULL)
         y
     }
 
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_Sent_Token_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple sentence tokenizer, which takes a string s
     ## representing the whole text, and returns the spans of the
@@ -79,6 +83,8 @@ function(f, description = NULL, classes = NULL)
     ## (currently) do not split the whole text into paragraphs before
     ## performing sentence tokenization.  Instead, we add a sentence
     ## constituents feature for the paragraphs.
+
+    force(f)    
 
     default <- "Simple_Sent_Token_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -108,11 +114,11 @@ function(f, description = NULL, classes = NULL)
         y
     }
 
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_Word_Token_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple "word" tokenizer, which takes a string s
     ## representing a single sentence, and returns the spans of the word
@@ -121,6 +127,8 @@ function(f, description = NULL, classes = NULL)
     
     ## The generated annotator adds the sentence offsets and unique
     ## word token ids, and constituents features for the sentences.
+
+    force(f)
 
     default <- "Simple_Word_Token_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -182,11 +190,11 @@ function(f, description = NULL, classes = NULL)
         c(a, do.call(c, y))
     }
 
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_POS_Tag_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple POS tagger, which takes a character vector
     ## giving the word tokens in a sentence, and returns either a
@@ -196,6 +204,8 @@ function(f, description = NULL, classes = NULL)
     ## The generated annotator simply computes an annotation for the
     ## word tokens with the features obtained from the POS tagger.
 
+    force(f)
+    
     default <- "Simple_POS_Tag_Annotator"
     classes <- .classes_with_default(classes, default)
 
@@ -219,14 +229,24 @@ function(f, description = NULL, classes = NULL)
 
         a <- do.call(c, a)
         a$features <- features
+
+        ## As simple POS taggers do not return annotations, information
+        ## about the POS tagset cannot be passed as annotation metadata.
+        ## Instead, for now we look for a 'POS_tagset' attribute.
+        ## Similarly for 'POS_tagset_URL'.
+        for(tag in c("POS_tagset", "POS_tagset_URL")) {
+            if(!is.null(val <- attr(f, tag)))
+                attr(a, "meta")[[tag]] <- val
+        }
+        
         a
     }
     
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_Entity_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple entity detector ("named entity recognizer") 
     ## which takes a character vector giving the word tokens in a
@@ -235,6 +255,8 @@ function(f, description = NULL, classes = NULL)
 
     ## The generated annotator adds ids and transforms word token spans
     ## to character spans.
+
+    force(f)
 
     default <- "Simple_Entity_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -266,11 +288,11 @@ function(f, description = NULL, classes = NULL)
         y
     }
     
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_Chunk_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple chunker, which takes character vectors
     ## giving the word tokens and the corresponding POS tags as inputs,
@@ -282,6 +304,8 @@ function(f, description = NULL, classes = NULL)
     ## annotations for the sentences, obtains the chunk features for
     ## these, and returns the word token annotations with these features
     ## (only).
+
+    force(f)
 
     default <- "Simple_Chunk_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -311,17 +335,19 @@ function(f, description = NULL, classes = NULL)
         a
     }
 
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
 
 Simple_Stem_Annotator <-
-function(f, description = NULL, classes = NULL)
+function(f, meta = list(), classes = NULL)
 {
     ## f should be a simple stemmer, which takes a character vector of
     ## word tokens and returns the corresponding word stems.
 
     ## The generated annotator simply computes an annotation for the
     ## word tokens with the stem features obtained from the stemmer.
+
+    force(f)
 
     default <- "Simple_Stem_Annotator"
     classes <- .classes_with_default(classes, default)
@@ -336,7 +362,7 @@ function(f, description = NULL, classes = NULL)
         a
     }
 
-    Annotator(g, description, classes)
+    Annotator(g, meta, classes)
 }
     
 sentence_constituents <-
@@ -394,3 +420,70 @@ function(x, tag)
     ## given tag and respective values in x.
     lapply(x, single_feature, tag)
 }
+
+### * Annotator pipelines
+
+Annotator_Pipeline <-
+function(..., meta = list())
+{
+    x <- list(...)
+    if(!all(vapply(x, is.Annotator, FALSE)))
+        stop("all pipeline elements must be annotator objects")
+    .Annotator_Pipeline_from_list_and_meta(x, meta)
+}
+
+## <FIXME>
+## Should we move the is.Annotator checking here, perhaps with a way to
+## turn it off?
+.Annotator_Pipeline_from_list_and_meta <-
+function(x, meta = list())
+{
+    attr(x, "meta") <- meta
+    class(x) <- "Annotator_Pipeline"
+    x
+}
+## </FIXME>
+
+as.Annotator_Pipeline <-
+function(x)
+    UseMethod("as.Annotator_Pipeline")
+
+as.Annotator_Pipeline.Annotator_Pipeline <-
+    identity
+
+as.Annotator_Pipeline.Annotator <-
+function(x)
+    .Annotator_Pipeline_from_list_and_meta(list(x))
+
+as.Annotator_Pipeline.list <-
+function(x)
+{
+    if(!all(vapply(x, is.Annotator, FALSE)))
+        stop("all pipeline elements must be annotator objects")
+    .Annotator_Pipeline_from_list_and_meta(x)
+}
+
+`[.Annotator_Pipeline` <-
+function(x, i)
+    .Annotator_Pipeline_from_list_and_meta(unclass(x)[i], meta(x))
+
+as.list.Annotator_Pipeline <-
+function(x, ...)
+{
+    x <- unclass(x)
+    attr(x, "meta") <- NULL
+    x
+}
+
+## No merging of metadata for now.
+c.Annotator_Pipeline <-
+function(..., recursive = FALSE)
+{
+    annotators <- unlist(lapply(list(...), as.Annotator_Pipeline),
+                         recursive = FALSE)
+    .Annotator_Pipeline_from_list_and_meta(annotators)
+}
+
+format.Annotator_Pipeline <-
+function(x, ...)
+    sprintf("An annotator pipeline of length %d.", length(x))

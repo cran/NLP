@@ -49,14 +49,15 @@ is.Span(x)
 
   There are several additional methods for class \code{"Span"}:
   \code{print()} and \code{format()};
-  \code{c()} combines spans, and
+  \code{c()} combines spans (or objects coercible to these using
+  \code{as.Span()}), and
   \code{as.list()} and \code{as.data.frame()} coerce, respectively, to
   lists (of single span objects) and data frames (with spans and slots
   corresponding to rows and columns).  Finally, one can add a scalar and
   a span object (resulting in shifting the start and end positions by
   the scalar).
 
-  \code{Span()} creates span objects from the given sequence of start
+  \code{Span()} creates span objects from the given sequences of start
   and end positions, which must have the same length.
 
   \code{as.Span()} coerces to span objects, with a method for annotation

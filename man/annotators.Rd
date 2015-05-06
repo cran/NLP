@@ -13,19 +13,19 @@
   functions performing simple basic tasks.
 }
 \usage{
-Simple_Para_Token_Annotator(f, description = NULL, classes = NULL)
-Simple_Sent_Token_Annotator(f, description = NULL, classes = NULL)
-Simple_Word_Token_Annotator(f, description = NULL, classes = NULL)
-Simple_POS_Tag_Annotator(f, description = NULL, classes = NULL)
-Simple_Entity_Annotator(f, description = NULL, classes = NULL)
-Simple_Chunk_Annotator(f, description = NULL, classes = NULL)
-Simple_Stem_Annotator(f, description = NULL, classes = NULL)
+Simple_Para_Token_Annotator(f, meta = list(), classes = NULL)
+Simple_Sent_Token_Annotator(f, meta = list(), classes = NULL)
+Simple_Word_Token_Annotator(f, meta = list(), classes = NULL)
+Simple_POS_Tag_Annotator(f, meta = list(), classes = NULL)
+Simple_Entity_Annotator(f, meta = list(), classes = NULL)
+Simple_Chunk_Annotator(f, meta = list(), classes = NULL)
+Simple_Stem_Annotator(f, meta = list(), classes = NULL)
 }
 \arguments{
   \item{f}{a function performing a \dQuote{simple} basic NLP task (see
     \bold{Details}).}
-  \item{description}{a character string describing the annotator, or
-    \code{NULL} (default).}
+  \item{meta}{an empty or named list of annotator (pipeline) metadata
+    tag-value pairs.}
   \item{classes}{a character vector or \code{NULL} (default) giving
     classes to be used for the created annotator object in addition to
     the default ones (see \bold{Details}).}
@@ -179,7 +179,8 @@ s[subset(a2, type == "word")]
 ## A simple word token annotator based on wordpunct_tokenizer():
 word_token_annotator <-
     Simple_Word_Token_Annotator(wordpunct_tokenizer,
-                                "Based on wordpunct_tokenizer().")
+                                list(description =
+                                     "Based on wordpunct_tokenizer()."))
 word_token_annotator
 a2 <- annotate(s, word_token_annotator, a1)
 a2

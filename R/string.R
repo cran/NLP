@@ -49,3 +49,11 @@ function(x, i, j)
 ## A popular mailing list discussion item is to use a Java style '+'
 ## operator for concatenating strings (not uniformly liked as the
 ## corresponding operation is not commutative).
+
+## For now, provide Python-style string repetition.
+
+`*.String` <-
+function(e1, e2)
+{
+    String(paste(rep.int(e1, e2), collapse = ""))
+}

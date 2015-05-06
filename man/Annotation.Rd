@@ -15,6 +15,8 @@
 \alias{format.Annotation}
 \alias{length.Annotation}
 \alias{merge.Annotation}
+\alias{meta.Annotation}
+\alias{meta<-.Annotation}
 \alias{names.Annotation}
 \alias{print.Annotation}
 \alias{subset.Annotation}
@@ -24,7 +26,8 @@
   Creation and manipulation of annotation objects.
 }
 \usage{
-Annotation(id = NULL, type = NULL, start, end, features = NULL)
+Annotation(id = NULL, type = NULL, start, end, features = NULL,
+           meta = list())
 as.Annotation(x, ...)
 \method{as.Annotation}{Span}(x, id = NULL, type = NULL, ...)
 is.Annotation(x)
@@ -38,6 +41,8 @@ is.Annotation(x)
     of the character spans the annotations refer to.}
   \item{features}{a list of (named or empty) features lists, or
     \code{NULL} (default), resulting in empty feature lists.}
+  \item{meta}{a named or empty list of annotation metadata tag-value
+    pairs.}
   \item{x}{an \R object (an object of class \code{"\link{Span}"} for the
     coercion methods for such objects).}
   \item{...}{further arguments passed to or from other methods.}
@@ -50,12 +55,13 @@ is.Annotation(x)
   annotation features (tag/value pairs).
 
   Annotation objects provide sequences (allowing positional access) of
-  single annotations.  They have class \code{"Annotation"} and, as they
-  contain character spans, also inherit from class \code{"\link{Span}"}.
-  Span objects can be coerced to annotation objects via
-  \code{as.Annotation()} which allows to specify ids and types (using the
-  default values sets these to missing), and annotation objects can be
-  coerced to span objects using \code{\link{as.Span}()}.
+  single annotations, together with metadata about these.  They have
+  class \code{"Annotation"} and, as they contain character spans, also
+  inherit from class \code{"\link{Span}"}.  Span objects can be coerced
+  to annotation objects via \code{as.Annotation()} which allows to
+  specify ids and types (using the default values sets these to
+  missing), and annotation objects can be coerced to span objects using
+  \code{\link{as.Span}()}.
 
   The features of a single annotation are represented as named or empty
   lists.
@@ -71,7 +77,8 @@ is.Annotation(x)
   \code{print()} and \code{format()} (which both have a \code{values}
   argument which if \code{FALSE} suppresses indicating the feature map
   values);
-  \code{c()} combines annotations; 
+  \code{c()} combines annotations (or objects coercible to these using
+  \code{as.Annotation()});
   \code{merge()} merges annotations by combining the feature lists of
   annotations with otherwise identical slots;
   \code{subset()} allows subsetting by expressions involving the slot

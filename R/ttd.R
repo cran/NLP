@@ -1,7 +1,3 @@
-## <TODO>
-## Add argument 'map'.
-## </TODO>
-
 TaggedTextDocument <-
 function(con, encoding = "unknown",
          word_tokenizer = whitespace_tokenizer,
@@ -32,6 +28,7 @@ function(con, encoding = "unknown",
                                           sapply(toks, `[[`, 1L),
                                           POS =
                                           toupper(sapply(toks, `[[`, 2L)),
+               
                                           stringsAsFactors = FALSE)
                            })
                 })
@@ -56,25 +53,47 @@ function(con, encoding = "unknown",
     doc
 }
 
-print.TaggedTextDocument <-
+format.TaggedTextDocument <-
 function(x, ...)
 {
     content <- x$content
     len <- length(content)
-    writeLines(sprintf("<<TaggedTextDocument (words: %d, sents: %d, paras: %d)>>",
-                       sum(sapply(content, NROW)),
-                       tail(content[[len]]$sent, 1L),
-                       len))
-    invisible(x)
+    c(.format_TextDocument(x),
+      sprintf("Content:  words: %d, sents: %d, paras: %d",
+              sum(sapply(content, NROW)),
+              tail(content[[len]]$sent, 1L),
+              len))
 }
+
+## print.TaggedTextDocument <-
+## function(x, ...)
+## {
+##     content <- x$content
+##     len <- length(content)
+##     writeLines(sprintf("<<TaggedTextDocument (words: %d, sents: %d, paras: %d)>>",
+##                        sum(sapply(content, NROW)),
+##                        tail(content[[len]]$sent, 1L),
+##                        len))
+##     invisible(x)
+## }
 
 content.TaggedTextDocument <-
 function(x)
     x$content
 
-meta.TaggedTextDocument <-
-function(x, tag = NULL, ...)
-    if(is.null(tag)) x$meta else x$meta[[tag]]
+## meta.TaggedTextDocument <-
+## function(x, tag = NULL, ...)
+##     if(is.null(tag)) x$meta else x$meta[[tag]]
+
+## `meta<-.TaggedTextDocument` <-
+## function(x, tag = NULL, ..., value)
+## {
+##     if(is.null(tag))
+##         x$meta <- value
+##     else
+##         x$meta[[tag]] <- value
+##     x
+## }
 
 ## <NOTE>
 ## It would be nice if the as.character() method could "suitably"
@@ -112,10 +131,13 @@ function(x, ...)
 }
 
 tagged_words.TaggedTextDocument <-
-function(x, ...)
+function(x, map = NULL, ...)
 {
-    unlist(lapply(x$content,
-                  function(e) sprintf("%s/%s", e$word, e$POS)))
+    if(!is.null(map)) {
+        x <- .map_POS_tags_TaggedTextDocument(x, map)
+    }
+    Tagged_Token(unlist(lapply(x$content, `[[`, "word")),
+                 unlist(lapply(x$content, `[[`, "POS")))
 }
 
 ## <NOTE>
@@ -125,18 +147,37 @@ function(x, ...)
 ## </NOTE>
 
 tagged_sents.TaggedTextDocument <-
-function(x, ...)
+function(x, map = NULL, ...)
 {
+    if(!is.null(map)) {
+        x <- .map_POS_tags_TaggedTextDocument(x, map)
+    }
     unlist(lapply(x$content,
                   function(e)
-                  split(sprintf("%s/%s", e$word, e$POS), e$sent)),
+                  split(Tagged_Token(e$word, e$POS), e$sent)),
            recursive = FALSE)
 }
     
 tagged_paras.TaggedTextDocument <-
-function(x, ...)
+function(x, map = NULL, ...)
 {
+    if(!is.null(map)) {
+        x <- .map_POS_tags_TaggedTextDocument(x, map)
+    }
     lapply(x$content,
            function(e)
-           split(sprintf("%s/%s", e$word, e$POS), e$sent))
+           split(Tagged_Token(e$word, e$POS), e$sent))
+}
+
+.map_POS_tags_TaggedTextDocument <-
+function(x, map)
+{
+    map <- POS_tag_mapper(map, meta(x, "POS_tagset"))
+    x$content <-
+        lapply(x$content,
+               function(e) {
+                   e$POS <- map(e$POS)
+                   e
+               })
+    x
 }

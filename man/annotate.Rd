@@ -13,8 +13,10 @@ annotate(s, f, a = Annotation())
   \item{s}{a \code{\link{String}} object, or something coercible to this
     using \code{\link{as.String}} (e.g., a character string with
     appropriate encoding information)}
-  \item{f}{an \code{\link{Annotator}} object, or a list of such objects
-    representing an annotator pipeline.}
+  \item{f}{an \code{\link{Annotator}} or
+    \code{\link{Annotator_Pipeline}} object, or something coercible to
+    the latter via \code{\link{as.Annotator_Pipeline}()} (such as a list
+    of annotator objects).}
   \item{a}{an \code{\link{Annotation}} object giving the annotations to
     start with.}
 }
@@ -62,5 +64,6 @@ a2 <- annotate(s, word_token_annotator, a1)
 a2
 
 ## Can also perform sentence and word token annotations in a pipeline:
-annotate(s, list(sent_token_annotator, word_token_annotator))
+p <- Annotator_Pipeline(sent_token_annotator, word_token_annotator)
+annotate(s, p)
 }

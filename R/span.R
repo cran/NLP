@@ -23,10 +23,10 @@ function(start, end)
     .Span_from_args(start, end)
 }
 
-## Let's see how much these really get used.
 .Span_from_args <-
 function(start, end)
     .Span_from_list(list(start = start, end = end))
+
 .Span_from_list <-
 function(x)
 {
@@ -51,6 +51,7 @@ function(x)
 `[.Span` <-
 function(x, i)
     .Span_from_list(lapply(unclass(x), `[`, i))
+
 ## <TODO>
 ## Implement eventually ...
 `[<-.Span` <-
@@ -61,6 +62,7 @@ function(x, i, value)
 `[[.Span` <-
 function(x, i)
     .Span_from_list(lapply(unclass(x), `[[`, i))
+
 ## <TODO>
 ## Implement eventually ...
 `[[<-.Span` <-

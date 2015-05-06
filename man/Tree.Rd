@@ -49,7 +49,7 @@ Tree_apply(x, f, recursive = FALSE)
   There is a \code{format()} method for tree objects: this first tries a
   nested bracketting in a single line of the given width, and if this is
   not possible, produces a nested indented bracketting.  The
-  \code{print()} method uses the \code{format} method, and hence its
+  \code{print()} method uses the \code{format()} method, and hence its
   arguments to control the formatting.
 
   \code{Tree_parse()} reads nested brackettings into a tree object.

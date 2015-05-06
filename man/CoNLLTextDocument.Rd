@@ -42,6 +42,15 @@ CoNLLTextDocument(con, encoding = "unknown", meta = list())
   and class \code{"CoNLLTextDocument"},
   which should be used to access the text in such text document
   objects.
+
+  The methods for generics
+  \code{\link{tagged_words}()} and
+  \code{\link{tagged_sents}()}
+  provide a mechanism for mapping POS tags via the \code{map} argument,
+  see section \bold{Details} in the help page for
+  \code{\link{tagged_words}()} for more information.
+  The POS tagset used will be inferred from the \code{POS_tagset}
+  metadata element of the CoNLL-style text document.
 }
 \value{
   An object inheriting from \code{"CoNLLTextDocument"} and

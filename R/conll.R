@@ -24,23 +24,44 @@ function(con, encoding = "unknown", meta = list())
     doc
 }
 
-print.CoNLLTextDocument <-
+format.CoNLLTextDocument <-
 function(x, ...)
 {
     content <- x$content
     nr <- NROW(content)
-    writeLines(sprintf("<<CoNLLTextDocument (words: %d, sents: %d)>>",
-                       nr, content[[nr, "sent"]]))
-    invisible(x)
+    c(.format_TextDocument(x),
+      sprintf("Content:  words: %d, sents: %d",
+              nr,
+              content[[nr, "sent"]]))
 }
+
+## print.CoNLLTextDocument <-
+## function(x, ...)
+## {
+##     content <- x$content
+##     nr <- NROW(content)
+##     writeLines(sprintf("<<CoNLLTextDocument (words: %d, sents: %d)>>",
+##                        nr, content[[nr, "sent"]]))
+##     invisible(x)
+## }
 
 content.CoNLLTextDocument <-
 function(x)
     x$content
 
-meta.CoNLLTextDocument <-
-function(x, tag = NULL, ...)
-    if(is.null(tag)) x$meta else x$meta[[tag]]
+## meta.CoNLLTextDocument <-
+## function(x, tag = NULL, ...)
+##     if(is.null(tag)) x$meta else x$meta[[tag]]
+
+## `meta<-.CoNLLTextDocument` <-
+## function(x, tag = NULL, ..., value)
+## {
+##     if(is.null(tag))
+##         x$meta <- value
+##     else
+##         x$meta[[tag]] <- value
+##     x
+## }
 
 as.character.CoNLLTextDocument <-
 words.CoNLLTextDocument <-
@@ -57,15 +78,19 @@ function(x, ...)
 }
 
 tagged_words.CoNLLTextDocument <-
-function(x, ...)
+function(x, map = NULL, ...)
 {
-    sprintf("%s/%s", x$content$word, x$content$POS)
+    if(!is.null(map))
+        x <- .map_POS_tags_CoNLLTextDocument(x, map)
+    Tagged_Token(x$content$word, x$content$POS)
 }
 
 tagged_sents.CoNLLTextDocument <-
-function(x, ...)
+function(x, map = NULL, ...)
 {
-    split(sprintf("%s/%s", x$content$word, x$content$POS),
+    if(!is.null(map))
+        x <- .map_POS_tags_CoNLLTextDocument(x, map)
+    split(Tagged_Token(x$content$word, x$content$POS),
           x$content$sent)
 }
 
@@ -76,4 +101,12 @@ function(x, ...)
         split(x$content$word, x$content$sent),
         split(x$content$POS, x$content$sent),
         split(x$content$chunk_tag, x$content$sent))
+}
+
+.map_POS_tags_CoNLLTextDocument <-
+function(x, map)
+{
+    map <- POS_tag_mapper(map, meta(x, "POS_tagset"))
+    x$content$POS <- map(x$content$POS)
+    x
 }

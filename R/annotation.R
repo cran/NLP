@@ -21,20 +21,21 @@ Annotation_classes <- c("Annotation", "Span")
 Annotation_slot_names <- c("id", "type", "start", "end", "features")
 
 Annotation <-
-function(id = NULL, type = NULL, start, end, features = NULL)
+function(id = NULL, type = NULL, start, end, features = NULL,
+         meta = list())
 {
     if(nargs() == 0L) {
         ## Could also provide default values (e.g., NULL) for all
         ## arguments ...
-        a <- list(id = integer(),
-                  type = character(),
-                  start = integer(),
-                  end = integer(),
-                  feature = list())
-        return(.Annotation_from_list(a))
+        return(.Annotation_from_args(integer(),
+                                     character(),
+                                     integer(),
+                                     integer(),
+                                     list(),
+                                     meta))
     } 
 
-    start < as.integer(start)
+    start <- as.integer(start)
     end <- as.integer(end)
     n <- length(start)
     id <- if(is.null(id))
@@ -54,29 +55,23 @@ function(id = NULL, type = NULL, start, end, features = NULL)
     ## empty lists.
     ## </TODO>
 
-    a <- list(id = id,
-              type = type,
-              start = start,
-              end = end,
-              features = features)
-    if(any(diff(sapply(a, length)) != 0))
-        stop("arguments must have the same length")
-
-    .Annotation_from_list(a)
+    .Annotation_from_args(id, type, start, end, features, meta)
 }
 
-## Let's see how much these really get used.
 .Annotation_from_args <-
-function(id, type, start, end, features)
+function(id, type, start, end, features, meta)
 {
-    x <- list(id = id, type = type, start = start, end = end,
-              features = features) 
-    .Annotation_from_list(x)
+    x <- list(id, type, start, end, features)
+    if(any(diff(sapply(x, length)) != 0L))
+        stop("arguments must have the same length")
+    names(x) <- Annotation_slot_names
+    .Annotation_from_list_and_meta(x, meta)
 }
-.Annotation_from_list <-
-function(x)
+.Annotation_from_list_and_meta <-
+function(x, meta)
 {
     class(x) <- Annotation_classes
+    attr(x, "meta") <- meta
     x
 }
 
@@ -101,7 +96,8 @@ function(x)
 
 `[.Annotation` <-
 function(x, i)
-    .Annotation_from_list(lapply(unclass(x), `[`, i))
+    .Annotation_from_list_and_meta(lapply(unclass(x), `[`, i),
+                                   attr(x, "meta"))
 
 ## <TODO>
 ## Implement eventually ...
@@ -115,7 +111,7 @@ function(x, i)
 {
     y <- lapply(unclass(x), `[[`, i)
     y$features <- list(y$features)
-    .Annotation_from_list(y)
+    .Annotation_from_list_and_meta(y, attr(x, "meta"))
 }
 
 ## <TODO>
@@ -150,7 +146,8 @@ function(x, name, value)
     if(length(value) != n)
         stop("replacement must have the same length as object")
     x[[pos]] <- value
-    .Annotation_from_list(x)
+    
+    .Annotation_from_list_and_meta(x, attr(x, "meta"))
 }
 
 as.data.frame.Annotation <-
@@ -173,12 +170,24 @@ function(x,  ...)
 c.Annotation <-
 function(..., recursive = FALSE)
 {
-    args <- lapply(list(...), function(e) unclass(as.Annotation(e)))
+    args <- lapply(list(...), as.Annotation)
+    meta <- do.call(c, lapply(args, meta))
+    args <- lapply(args, unclass)
+
     y <- lapply(Annotation_slot_names,
                 function(e) unlist(lapply(args, `[[`, e),
                                    recursive = FALSE))
     names(y) <- Annotation_slot_names
-    .Annotation_from_list(y)
+
+    ## Remove *exact* duplicates from metadata:
+    if(length(meta)) {
+        meta <- tapply(meta, names(meta), unique, simplify = FALSE)
+        tags <- rep.int(names(meta), sapply(meta, length))
+        meta <- unlist(meta, recursive = FALSE, use.names = FALSE)
+        names(meta) <- tags
+    }
+    
+    .Annotation_from_list_and_meta(y, meta)
 }
 
 ## This is at the mercy of duplicated() working well on lists ...
@@ -235,25 +244,42 @@ function(x, y, ...)
     pos <- match(paste(y$id, y$type, y$start, y$end, sep = "\r"),
                  paste(x$id, x$type, x$start, x$end, sep = "\r"),
                  nomatch = 0L)
-    ## <FIXME>
+    ## <NOTE>
     ## This should really combine the unique tag/value pairs.
     ## In fact, duplicated tags are a problem, but how should they be
     ## handled (take the pair from x or from y)?
     x$features[pos] <- Map(c, x$features[pos], y$features[pos > 0L])
-    ## </FIXME>
+    ## </NOTE>
     c(x, y[pos == 0L])
 }
+
+## meta.Annotation <-
+## function(x, tag = NULL, ...)
+## {
+##     m <- attr(x, "meta")
+##     if(is.null(tag)) m else m[[tag]]
+## }
+
+## `meta<-.Annotation` <-
+## function(x, tag = NULL, ..., value)    
+## {
+##     if(is.null(tag))
+##         attr(x, "meta") <- value
+##     else
+##         attr(x, "meta")[[tag]] <- value
+##     x
+## }
 
 names.Annotation <-
 function(x)
     NULL
 
-print.Annotation <-
-function(x, values = TRUE, ...)
-{
-    writeLines(format(x, values = values))
-    invisible(x)
-}
+## print.Annotation <-
+## function(x, values = TRUE, ...)
+## {
+##     writeLines(format(x, values = values))
+##     invisible(x)
+## }
 
 subset.Annotation <-
 function(x, subset, ...)
