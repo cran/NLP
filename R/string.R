@@ -10,7 +10,14 @@ function(x)
 
 as.String <-
 function(x)
-    String(toString(x))
+    UseMethod("as.String")
+
+as.String.String <- identity
+
+as.String.default <-
+function(x)
+    String(paste(x, collapse = "\n"))
+
 is.String <-
 function(x)
     inherits(x, "String")

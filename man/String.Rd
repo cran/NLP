@@ -32,8 +32,10 @@ is.String(x)
   taking the first element of the vector and converting it to UTF-8
   encoding.
 
-  \code{as.String()} coerces to a string object by calling \code{String()}
-  on the result of the \code{\link{toString}()} generic.
+  \code{as.String()} is a generic function to coerce to a string object.
+  The default method calls \code{String()} on the result of converting
+  to character and concatenating into a single string with the elements
+  separated by newlines.
 
   \code{is.String()} tests whether an object inherits from class
   \code{"String"}.

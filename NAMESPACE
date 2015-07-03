@@ -3,6 +3,8 @@ importFrom("utils", "head", "tail")
 export("content", "content<-", "meta", "meta<-")
 
 export("String", "as.String", "is.String")
+S3method("as.String", "String")
+S3method("as.String", "default")
 S3method("[", "String")
 S3method("*", "String")
 S3method("print", "String")

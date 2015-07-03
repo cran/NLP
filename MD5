@@ -1,8 +1,8 @@
-a09f733225727c8d2ddce90b8d8740a3 *DESCRIPTION
-72008b77e7206cd8ef476bf14a140104 *NAMESPACE
+9a65e510f3c67865014bbb580e03e732 *DESCRIPTION
+82dda6211e3bf6188dcfb97f21151224 *NAMESPACE
 68230f5b697cb282615c5f24544fb720 *R/annotate.R
 5c0b4980fe2b0e593763faf229c76e1b *R/annotation.R
-ccc62f3222a31f58cf964621fc70075d *R/annotators.R
+dc8e74d829821e4b3acaaac41125b902 *R/annotators.R
 2631908b10af1f068a74dc61908054e8 *R/aptd.R
 abe32ab4f644b964fccdf65637eb6ac1 *R/conll.R
 bbfa26d7aa706b85df6429664c7f261e *R/datetime.R
@@ -10,7 +10,7 @@ bbfa26d7aa706b85df6429664c7f261e *R/datetime.R
 5aea6066c1f4019d43418febbde7daa3 *R/language.R
 8379bdef18713b0ecb99b8ac396450a0 *R/ngram.R
 58bcbd30d5d9a8e395a4fda8d478a767 *R/span.R
-7fe90423e031a7ff0a7529c52342eba3 *R/string.R
+babf2a2d96e055b2b4490dd4ac72e347 *R/string.R
 aa0b1e0047b905e7e78adcdc54e9702f *R/sysdata.rda
 5de59c9b5892f7d8d02528145c59204a *R/tnt.R
 48a4ddb6f3432b10fda2e6f5e24e04e1 *R/tokenize.R
@@ -25,7 +25,7 @@ c1f351e3ab36cc882b6ae7626f423533 *R/wordlist.R
 c61a0baa090c057aed6779e329c846de *man/Annotator.Rd
 ff7c5b1c73126c49fa1f046e0ed46702 *man/CoNLLTextDocument.Rd
 f153bffba3e2259288df2f51564e91c1 *man/Span.Rd
-4d2797ea1807ad6159673914fe915f8f *man/String.Rd
+97a707a3526f6a0f2166a2c5f56bf6de *man/String.Rd
 40b691bbe88ed7b18b55215f0ca9b371 *man/TaggedTextDocument.Rd
 82a5eb65b8fff6ecb1bda2818873dec5 *man/Tagged_Token.Rd
 d9aecd633339bf7a3df713e224684cf7 *man/TextDocument.Rd

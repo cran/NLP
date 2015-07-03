@@ -396,7 +396,11 @@ function(id)
 
 single_feature <-
 function(value, tag)
-    setNames(list(value), tag)
+{
+    y <- list(value)
+    names(y) <- tag
+    y
+}
 
 .max_id <-
 function(id)
