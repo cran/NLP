@@ -39,13 +39,22 @@ function(x, ...)
 `[.String` <-
 function(x, i, j)
 {
+    mysubstring <- function(x, i, j) {
+        ## substring() recycles to max length of args only when this is
+        ## positive.
+        if(!length(i))
+            character()
+        else
+            substring(x, i, j)
+    }
+
     if(missing(j)) {
         if(is.Span(i))
-            return(substring(x, i$start, i$end))
+            return(mysubstring(x, i$start, i$end))
         if(is.list(i) && length(i) && all(sapply(i, is.Span)))
             return(lapply(i,
                           function(e)
-                          substring(x, e$start, e$end)))
+                          mysubstring(x, e$start, e$end)))
     }
     ## Regular slicing operators in a scalar context.
     String(substr(x, i, j))
