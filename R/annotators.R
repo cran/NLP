@@ -157,7 +157,7 @@ function(f, meta = list(), classes = NULL)
                      },
                      y,
                      a$start[i] - 1L)
-            n <- sapply(y, length)
+            n <- lengths(y)
             id <- Map(.seq_id,
                       next_id(a$id) + c(0L, cumsum(head(n, -1L))),
                       n)
@@ -170,7 +170,7 @@ function(f, meta = list(), classes = NULL)
                      y, id, type)
         } else if(all(sapply(y, is.Span))) {
             y <- Map(`+`, y, a$start[i] - 1L) # Add sentence offsets.
-            n <- sapply(y, length)
+            n <- lengths(y)
             id <- Map(.seq_id,
                       next_id(a$id) + c(0L, cumsum(head(n, -1L))),
                       n)
@@ -216,7 +216,7 @@ function(f, meta = list(), classes = NULL)
                                   a[a$type == "sentence"])
         if(!length(a))
             stop("no sentence token annotations found")
-        if(!any(sapply(a, length) > 0L))
+        if(!any(lengths(a) > 0L))
             stop("no word token annotations found")
 
         y <- lapply(s[a], f)
@@ -269,7 +269,7 @@ function(f, meta = list(), classes = NULL)
                                   a[a$type == "sentence"])
         if(!length(a))
             stop("no sentence token annotations found")
-        if(!any(sapply(a, length) > 0L))
+        if(!any(lengths(a) > 0L))
             stop("no word token annotations found")
 
         y <- lapply(a,
@@ -317,7 +317,7 @@ function(f, meta = list(), classes = NULL)
                                   a[a$type == "sentence"])
         if(!length(a))
             stop("no sentence token annotations found")
-        if(!any(sapply(a, length) > 0L))
+        if(!any(lengths(a) > 0L))
             stop("no word token annotations found")
 
         y <- lapply(a,
@@ -370,7 +370,7 @@ function(a)
 {
     i <- which(a$type == "sentence")
     constituents <- lapply(a$features[i], `[[`, "constituents")
-    if(!all(sapply(constituents, length) > 0L)) {
+    if(!all(lengths(constituents) > 0L)) {
         ## Looks like we have an annotation with no constituents
         ## features for the sentences ... need to compute these.
         ## Make sure sentences are ordered by character offsets.
@@ -411,7 +411,7 @@ function(id)
 
 .seq_id <-
 function(f, l)
-    as.integer(seq(from = f, length.out = l))
+    as.integer(seq.int(from = f, length.out = l))
 
 .classes_with_default <-
 function(classes, default)

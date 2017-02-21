@@ -28,7 +28,7 @@ function(x, ...)
     c(.format_TextDocument(x),
       sprintf("Annotations:  %d, length(s): %s",
               length(annotations),
-              paste(sapply(annotations, length), collapse = "/")),
+              paste(lengths(annotations), collapse = "/")),
       sprintf("Content:  chars: %d",
               nchar(x$content)))
 }
@@ -39,7 +39,7 @@ function(x, ...)
 ##     annotations <- x$annotations
 ##     writeLines(sprintf("<<AnnotatedPlainTextDocument (annotations: %d, length(s): %s)>>",
 ##                        length(annotations),
-##                        paste(sapply(annotations, length),
+##                        paste(lengths(annotations),
 ##                              collapse = "/")))
 ##     invisible(x)
 ## }

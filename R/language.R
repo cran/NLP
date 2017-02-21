@@ -212,13 +212,13 @@ function(x, expand = FALSE)
     pos <- match(x, IANA_language_subtag_registry$Index)
     z <- IANA_language_subtag_registry$Description[pos]
     ## Special case private use ranges.
-    if(!all(sapply(z, length))) {
+    if(!all(lengths(z))) {
         pos <- match(x,
                      IANA_language_subtag_registry_private_use_index_table)
         z[pos > 0L | grepl("^privateuse=", x)] <- "Private use"
     }
     z <- Map(`names<-`,
-             split(z, rep.int(seq_along(y), sapply(y, length))),
+             split(z, rep.int(seq_along(y), lengths(y))),
              y)
     names(z) <- names(y)
     z

@@ -62,7 +62,7 @@ function(id = NULL, type = NULL, start, end, features = NULL,
 function(id, type, start, end, features, meta)
 {
     x <- list(id, type, start, end, features)
-    if(any(diff(sapply(x, length)) != 0L))
+    if(any(diff(lengths(x)) != 0L))
         stop("arguments must have the same length")
     names(x) <- Annotation_slot_names
     .Annotation_from_list_and_meta(x, meta)
@@ -182,7 +182,7 @@ function(..., recursive = FALSE)
     ## Remove *exact* duplicates from metadata:
     if(length(meta)) {
         meta <- tapply(meta, names(meta), unique, simplify = FALSE)
-        tags <- rep.int(names(meta), sapply(meta, length))
+        tags <- rep.int(names(meta), lengths(meta))
         meta <- unlist(meta, recursive = FALSE, use.names = FALSE)
         names(meta) <- tags
     }

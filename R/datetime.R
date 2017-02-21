@@ -22,7 +22,7 @@ function(x)
     dates <- substring(x, 1L, 10L)
     pat <- "^([[:digit:]]{4})(-[[:digit:]]{2})?(-[[:digit:]]{2})?$"
     m <- regmatches(dates, regexec(pat, dates))
-    ind <- sapply(m, length) > 0L
+    ind <- lengths(m) > 0L
     if(!all(ind)) {
         bad[pos[!ind]] <- TRUE
         pos <- pos[ind]
@@ -46,7 +46,7 @@ function(x)
                      "$",
                      sep = "")
         m <- regmatches(times, regexec(pat, times))
-        ind <- sapply(m, length) > 0L
+        ind <- lengths(m) > 0L
         if(!all(ind))
             bad[pos[!ind]] <- TRUE
         y[pos[ind], 4L : 7L] <-
@@ -102,7 +102,7 @@ function(x, ...)
     y <- matrix("", length(x), 7L,
                 dimnames = list(names(x), ISO_8601_datetime_components))
     nms <- lapply(x, names)
-    y[cbind(rep.int(seq_along(x), sapply(nms, length)),
+    y[cbind(rep.int(seq_along(x), lengths(nms)),
             match(unlist(nms), ISO_8601_datetime_components))] <-
                 as.character(unlist(x))
     y

@@ -37,7 +37,7 @@ function(con, encoding = "unknown",
 
     lens <- lapply(x, length)
     ids <- Map(function(f, l)
-               as.integer(seq(from = f, length.out = l)),
+               as.integer(seq.int(from = f, length.out = l)),
                c(0L, head(cumsum(lens), -1L)) + 1L,
                lens)
 

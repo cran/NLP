@@ -15,8 +15,11 @@ Universal_POS_tags_map
 }
 \details{
   \code{Penn_Treebank_POS_tags} and \code{Brown_POS_tags} provide,
-  respectively, the Penn Treebank POS tags 
-  (\url{http://www.cis.upenn.edu/~treebank}) and the POS tags used for
+  respectively, the Penn Treebank POS tags
+  (\url{http://www.comp.leeds.ac.uk/ccalas/tagsets/upenn.html})
+  % Seems that \url{http://www.cis.upenn.edu/~treebank} no longer works
+  % and www.cis.upenn.edu no longer provides Penn Treebank resources ...
+  and the POS tags used for
   the Brown corpus
   (\url{http://www.hit.uib.no/icame/brown/bcm.html}), both as data
   frames with the following variables:
