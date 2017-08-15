@@ -21,7 +21,11 @@ Universal_POS_tags_map
   % and www.cis.upenn.edu no longer provides Penn Treebank resources ...
   and the POS tags used for
   the Brown corpus
-  (\url{http://www.hit.uib.no/icame/brown/bcm.html}), both as data
+  % On 2017-08-12,
+  %   (\url{http://www.hit.uib.no/icame/brown/bcm.html}),
+  % did not work ..
+  (\url{http://www.comp.leeds.ac.uk/ccalas/tagsets/brown.html}),
+  both as data
   frames with the following variables:
   \describe{
     \item{entry}{a character vector with the POS tags}

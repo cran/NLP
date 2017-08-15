@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NLP 0.1-10.1\n"
+"POT-Creation-Date: 2017-08-12 22:20\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "arguments must have the same length"
+msgstr ""
+
+msgid "invalid element name"
+msgstr ""
+
+msgid "replacement must have the same length as object"
+msgstr ""
+
+msgid "'subset' must be logical"
+msgstr ""
+
+msgid "Annotators must have formals 's' and 'a'."
+msgstr ""
+
+msgid "Invalid result from underlying paragraph tokenizer."
+msgstr ""
+
+msgid "Invalid result from underlying sentence tokenizer."
+msgstr ""
+
+msgid "no sentence token annotations found"
+msgstr ""
+
+msgid "Invalid result from underlying word tokenizer."
+msgstr ""
+
+msgid "no word token annotations found"
+msgstr ""
+
+msgid "Invalid result from underlying POS tagger."
+msgstr ""
+
+msgid "Invalid result from underlying name finder."
+msgstr ""
+
+msgid "Invalid result from underlying chunker."
+msgstr ""
+
+msgid "all pipeline elements must be annotator objects"
+msgstr ""
+
+msgid "argument 'annotations' must give a positive number of Annotation objects"
+msgstr ""
+
+msgid "content modification is not possible for AnnotatedPlainTextDocument objects"
+msgstr ""
+
+msgid "argument 'x' must be an AnnotatedPlainTextDocument object"
+msgstr ""
+
+msgid "Cannot determine position of '%s'"
+msgstr ""
+
+msgid "Invalid entries:"
+msgstr ""
+
+msgid "Invalid language tag(s):"
+msgstr ""
+
+msgid "Invalid operands."
+msgstr ""
+
+msgid "'%s' not defined for \"Span\" objects"
+msgstr ""
+
+msgid "Need a non-empty string."
+msgstr ""
+
+msgid "end of string"
+msgstr ""

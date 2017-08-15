@@ -52,7 +52,7 @@ as.Annotator_Pipeline(x)
   annotator objects based on function performing simple basic NLP tasks.
 
   Package \pkg{StanfordCoreNLP} available from the repository at
-  \url{http://datacube.wu.ac.at} which provides generators for annotator
+  \url{https://datacube.wu.ac.at} which provides generators for annotator
   pipelines based on the Stanford CoreNLP tools.
 }
 \examples{

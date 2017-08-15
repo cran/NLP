@@ -74,7 +74,7 @@ annotations(x)
 \examples{
 ## Use a pre-built annotated plain text document obtained by employing an
 ## annotator pipeline from package 'StanfordCoreNLP', available from the
-## repository at <http://datacube.wu.ac.at>, using the following code:
+## repository at <https://datacube.wu.ac.at>, using the following code:
 ##   require("StanfordCoreNLP")
 ##   s <- paste("Stanford University is located in California.",
 ##              "It is a great university.")

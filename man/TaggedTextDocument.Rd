@@ -81,6 +81,6 @@ TaggedTextDocument(con, encoding = "unknown",
   \code{TaggedTextDocument()}.
 
   Package \pkg{tm.corpus.Brown} available from the repository at
-  \url{http://datacube.wu.ac.at} conveniently provides this corpus
+  \url{https://datacube.wu.ac.at} conveniently provides this corpus
   as a \pkg{tm} \link[tm:VCorpus]{VCorpus} of tagged text documents.
 }
