@@ -323,29 +323,40 @@ function(v, h, justify = c("left", "right"))
 .format_feature_map <-
 function(x, ...)
 {
-    if(!length(x)) return(character())
-    .fmt <- function(v) {
-        ## Formatter for a single value.
-        if(is.object(v))
-            sprintf("<<%s>>", class(v)[1L])
-        else if(is.array(v))
-            sprintf("<<array,%s>>", paste(dim(v), collapse = ","))
-        else if(is.character(v) && (length(v) == 1L)) {
-            if(nchar(v) <= 32L) v else "<<character,1>>"
-        } else if(is.atomic(v) && (length(v) == 1L)) {
-            ## <FIXME>
-            ## Should this take ... args?
-            ## Also, might want to ensure this does not get too long.
-            format(v)
-            ## </FIXME>
-        } else if(is.vector(v))
-            sprintf("<<%s,%s>>", typeof(v), length(v))
-        else if(is.null(v))
-            "NULL"
-        else
-            "<<???>>"
+    if(!length(x))
+        return(character())
+    sprintf("%s=%s", names(x), vapply(x, .format_feature_value, ""))
+}
+
+## Formatter for a single value.
+.format_feature_value <-
+function(x)
+{
+    ## Could also make this a generic, which currently seems an
+    ## overkill, in particular if it is not exported so that no one else
+    ## can register methods.
+    if(inherits(x, "Stanford_typed_dependencies"))
+        sprintf("<<%s,%s>>", class(x)[1L], nrow(x))
+    else if(is.object(x))
+        sprintf("<<%s>>", class(x)[1L])
+    else if(is.array(x))
+        sprintf("<<array,%s>>", paste(dim(x), collapse = ","))
+    else if(is.character(x) && (length(x) == 1L)) {
+        if(nchar(x) <= 32L) x else "<<character,1>>"
     }
-    sprintf("%s=%s", names(x), vapply(x, .fmt, ""))
+    else if(is.atomic(x) && (length(x) == 1L)) {
+        ## <FIXME>
+        ## Should this take ... args?
+        ## Also, might want to ensure this does not get too long.
+        format(x)
+        ## </FIXME>
+    }
+    else if(is.vector(x))
+        sprintf("<<%s,%s>>", typeof(x), length(x))
+    else if(is.null(x))
+        "NULL"
+    else
+        "<<???>>"
 }
             
 annotations_in_spans <-
@@ -359,4 +370,37 @@ function(x, y)
     ind <- outer(x$start, y$start, ">=") & outer(x$end, y$end, "<=")
 
     lapply(seq_len(ncol(ind)), function(j) x[ind[, j]])
+}
+
+features <-
+function(x, type = NULL, simplify = TRUE)
+{
+    if(inherits(x, "AnnotatedPlainTextDocument"))
+        x <- x$annotation
+    else if(!is.Annotation(x))
+        stop("argument 'x' must be an Annotation object")
+    if(!is.null(type)) {
+        types <- unique(x$type)
+        i <- pmatch(type, types)
+        if(any(is.na(i)))
+            stop("incomplete or invalid 'type'")
+        x <- x[x$type %in% types[i]]
+    }
+    features <- x$features
+    tags <- unique(unlist(lapply(features, names)))
+    y <- lapply(tags, function(tag) lapply(features, `[[`, tag))
+    if(simplify) y <- lapply(y, .simplify)
+    names(y) <- tags
+    class(y) <- "data.frame"
+    attr(y, "row.names") <- .set_row_names(length(features))
+    y
+}
+
+.simplify <-
+function(x)
+{
+    if((length(len <- unique(lengths(x))) == 1L) && (len == 1L))
+        unlist(x, recursive = FALSE)
+    else
+        x
 }

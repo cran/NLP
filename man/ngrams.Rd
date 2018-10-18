@@ -8,7 +8,7 @@
 \arguments{
   \item{x}{a sequence (vector).}
   \item{n}{a positive integer giving the length of contiguous
-    sub-sequences to be computed}
+    sub-sequences to be computed.}
 }
 \value{
   a list with the computed sub-sequences.

@@ -149,7 +149,7 @@ function(f, meta = list(), classes = NULL)
         ## tokens, then the ids for these start from
         ##   m + 1 + sum(n_j: j < i)
         ## and have length n_i, of course.
-        if(all(sapply(y, is.Annotation))) {
+        if(all(vapply(y, is.Annotation, NA))) {
             y <- Map(function(u, v) {
                          u$start <- u$start + v
                          u$end <- u$end + v
@@ -168,7 +168,7 @@ function(f, meta = list(), classes = NULL)
                          u
                      },
                      y, id, type)
-        } else if(all(sapply(y, is.Span))) {
+        } else if(all(vapply(y, is.Span, NA))) {
             y <- Map(`+`, y, a$start[i] - 1L) # Add sentence offsets.
             n <- lengths(y)
             id <- Map(.seq_id,
@@ -220,9 +220,9 @@ function(f, meta = list(), classes = NULL)
             stop("no word token annotations found")
 
         y <- lapply(s[a], f)
-        if(all(sapply(y, is.character)))
+        if(all(vapply(y, is.character, NA)))
             features <- lapply(unlist(y), single_feature, "POS")
-        else if(all(sapply(y, is.list)))
+        else if(all(vapply(y, is.list, NA)))
             features <- unlist(y, recursive = FALSE)
         else 
             stop("Invalid result from underlying POS tagger.")
@@ -322,10 +322,11 @@ function(f, meta = list(), classes = NULL)
 
         y <- lapply(a,
                     function(e)
-                    f(s[e], sapply(e$features, `[[`, "POS")))
-        if(all(sapply(y, is.character)))
+                        f(s[e],
+                          .annotation_features_with_template(e, "POS")))
+        if(all(vapply(y, is.character, NA)))
             features <- lapply(unlist(y), single_feature, "chunk_tag")
-        else if(all(sapply(y, is.list)))
+        else if(all(vapply(y, is.list, NA)))
             features <- unlist(y, recursive = FALSE)
         else 
             stop("Invalid result from underlying chunker.")
@@ -417,13 +418,13 @@ function(f, l)
 function(classes, default)
     c(classes[classes != default], default)
 
-.simple_feature_map <-
-function(x, tag)
-{
-    ## Turn a sequence of values x into a list of feature maps with
-    ## given tag and respective values in x.
-    lapply(x, single_feature, tag)
-}
+## .simple_feature_map <-
+## function(x, tag)
+## {
+##     ## Turn a sequence of values x into a list of feature maps with
+##     ## given tag and respective values in x.
+##     lapply(x, single_feature, tag)
+## }
 
 ### * Annotator pipelines
 

@@ -19,7 +19,7 @@ as.Token_Tokenizer(x, ...)
 \arguments{
   \item{f}{a tokenizer function taking the string to tokenize as
     argument, and returning either the tokens (for
-    \code{Token_Tokenizer}) or the corresponding spans (for
+    \code{Token_Tokenizer}) or their spans (for
     \code{Span_Tokenizer}).}
   \item{meta}{a named or empty list of tokenizer metadata tag-value
     pairs.}
@@ -39,7 +39,7 @@ as.Token_Tokenizer(x, ...)
   information, which in turn can be used for converting between the two
   kinds using \code{as.Span_Tokenizer()} or \code{as.Token_Tokenizer()}.
   It is also possible to coerce annotator (pipeline) objects to
-  tokenizer objects, provided that the annotations provide suitable
+  tokenizer objects, provided that the annotators provide suitable
   token annotations.  By default, word tokens are used; this can be
   controlled via the \code{type} argument of the coercion methods (e.g.,
   use \code{type = "sentence"} to extract sentence tokens).

@@ -34,7 +34,7 @@ Tree_apply(x, f, recursive = FALSE)
   Trees give hierarchical groupings of leaves and subtrees, starting
   from the root node of the tree.  In natural language processing, the
   syntactic structure of sentences is typically represented by parse
-  trees (e.g., \url{http://en.wikipedia.org/wiki/Concrete_syntax_tree})
+  trees (e.g., \url{https://en.wikipedia.org/wiki/Concrete_syntax_tree})
   and displayed using nested brackettings.
 
   The tree objects in package \pkg{NLP} are patterned after the ones in

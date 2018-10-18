@@ -41,36 +41,48 @@ parsed_paras(x, ...)
   (this information is typically determined from the text document
   metadata; see the the help pages for text document extension classes
   implementing this mechanism for details).
+
+  In addition to methods for the text document classes provided by
+  package \pkg{NLP} itself, (see \link{TextDocument}), package \pkg{NLP}
+  also provides word tokens and POS tagged word tokens for the results
+  of
+  \code{\link[udpipe:udpipe_annotate]{udpipe_annotate}()}
+  from package \CRANpkg{udpipe},
+  \code{\link[spacyr:spacy_parse]{spacy_parse}()}
+  from package \CRANpkg{spacyr},
+  and
+  \code{\link[cleanNLP:cnlp_annotate]{cnlp_annotate}()}
+  from package \CRANpkg{cleanNLP}.
 }
 \value{
   For \code{words()}, a character vector with the word tokens in the
   document.
 
   For \code{sents()}, a list of character vectors with the word tokens
-  in each sentence.
+  in the sentences.
 
   For \code{paras()}, a list of lists of character vectors with the word
-  tokens in each sentence, grouped according to the paragraphs.
+  tokens in the sentences, grouped according to the paragraphs.
 
   For \code{tagged_words()}, a character vector with the POS tagged word
   tokens in the document (i.e., the word tokens and their POS tags,
   separated by \samp{/}).
 
   For \code{tagged_sents()}, a list of character vectors with the POS
-  tagged word tokens in each sentence.
+  tagged word tokens in the sentences.
 
   For \code{tagged_paras()}, a list of lists of character vectors with
-  the POS tagged word tokens in each sentence, grouped according to the
+  the POS tagged word tokens in the sentences, grouped according to the
   paragraphs.
   
   For \code{chunked_sents()}, a list of (flat) \code{\link{Tree}}
-  objects giving the chunk trees for each sentence in the document.
+  objects giving the chunk trees for the sentences in the document.
 
   For \code{parsed_sents()}, a list of \code{\link{Tree}}
-  objects giving the parse trees for each sentence in the document.
+  objects giving the parse trees for the sentences in the document.
 
   For \code{parsed_paras()}, a list of lists of \code{\link{Tree}}
-  objects giving the parse trees for each sentence in the document,
+  objects giving the parse trees for the sentences in the document,
   grouped according to the paragraphs in the document.
 }
 \seealso{

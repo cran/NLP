@@ -16,17 +16,10 @@ Universal_POS_tags_map
 \details{
   \code{Penn_Treebank_POS_tags} and \code{Brown_POS_tags} provide,
   respectively, the Penn Treebank POS tags
-  (\url{http://www.comp.leeds.ac.uk/ccalas/tagsets/upenn.html})
-  % Seems that \url{http://www.cis.upenn.edu/~treebank} no longer works
-  % and www.cis.upenn.edu no longer provides Penn Treebank resources ...
-  and the POS tags used for
-  the Brown corpus
-  % On 2017-08-12,
-  %   (\url{http://www.hit.uib.no/icame/brown/bcm.html}),
-  % did not work ..
-  (\url{http://www.comp.leeds.ac.uk/ccalas/tagsets/brown.html}),
-  both as data
-  frames with the following variables:
+  (\url{https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html}, Table 2)
+  and the POS tags used for the Brown corpus
+  (\url{http://www.hit.uib.no/icame/brown/bcm.html}),
+  both as data frames with the following variables:
   \describe{
     \item{entry}{a character vector with the POS tags}
     \item{description}{a character vector with short descriptions of the
@@ -36,7 +29,7 @@ Universal_POS_tags_map
 
   \code{Universal_POS_tags} provides the universal POS tagset introduced
   by Slav Petrov, Dipanjan Das, and Ryan McDonald
-  (\url{http://arxiv.org/abs/1104.2086}), as a data frame with character
+  (\url{https://arxiv.org/abs/1104.2086}), as a data frame with character
   variables \code{entry} and \code{description}.
 
   \code{Universal_POS_tags_map} is a named list of mappings from
@@ -45,8 +38,8 @@ Universal_POS_tags_map
   mappings, respectively, for the Penn Treebank and Brown POS tags.
 }
 \source{
-  \url{http://www.comp.leeds.ac.uk/ccalas/tagsets/upenn.html},
-  \url{http://www.comp.leeds.ac.uk/ccalas/tagsets/brown.html},
+  \url{https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html},
+  \url{http://www.hit.uib.no/icame/brown/bcm.html},
   \url{https://code.google.com/p/universal-pos-tags/}.
 }
 \examples{

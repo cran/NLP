@@ -12,7 +12,7 @@ annotate(s, f, a = Annotation())
 \arguments{
   \item{s}{a \code{\link{String}} object, or something coercible to this
     using \code{\link{as.String}} (e.g., a character string with
-    appropriate encoding information)}
+    appropriate encoding information).}
   \item{f}{an \code{\link{Annotator}} or
     \code{\link{Annotator_Pipeline}} object, or something coercible to
     the latter via \code{\link{as.Annotator_Pipeline}()} (such as a list
@@ -21,8 +21,8 @@ annotate(s, f, a = Annotation())
     start with.}
 }
 \value{
-  An annotation object containing the iteratively computed and merged
-  annotations.
+  An \code{\link{Annotation}} object containing the iteratively computed
+  and merged annotations.
 }
 \examples{
 ## A simple text.

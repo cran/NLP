@@ -24,13 +24,13 @@ WordListDocument(con, encoding = "unknown", meta = list())
   object which inherits from classes \code{"WordListDocument"} and
   \code{"\link{TextDocument}"}.
 
-  The words can be extracted using the \code{\link{words}()} and
-  \code{\link{as.character}()} methods for class
-  \code{"WordListDocument"}.
+  The methods for generics \code{\link{words}()} and
+  \code{\link{as.character}()} and class \code{"WordListDocument"}
+  can be used to extract the words.
 }
 \value{
-  An object inheriting from \code{"WordListDocument"} and
-  \code{"\link{TextDocument}"}.
+  A word list document object inheriting from \code{"WordListDocument"}
+  and \code{"\link{TextDocument}"}.
 }  
 \seealso{
   \code{\link{TextDocument}} for basic information on the text document

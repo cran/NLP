@@ -24,11 +24,10 @@ function(con, encoding = "unknown",
                                words <-
                                    substring(sent, spans$start, spans$end)
                                toks <- strsplit(words, sep, fixed = TRUE)
-                               data.frame(word =
-                                          sapply(toks, `[[`, 1L),
-                                          POS =
-                                          toupper(sapply(toks, `[[`, 2L)),
-               
+                               one <- vapply(toks, `[[`, "", 1L)
+                               two <- vapply(toks, `[[`, "", 2L)
+                               data.frame(word = one, 
+                                          POS = toupper(two),
                                           stringsAsFactors = FALSE)
                            })
                 })
@@ -42,7 +41,7 @@ function(con, encoding = "unknown",
                lens)
 
     x <- Map(function(u, v) {
-        cbind(data.frame(sent = rep.int(u, sapply(v, nrow))),
+        cbind(data.frame(sent = rep.int(u, vapply(v, nrow, 0L))),
               do.call(rbind, v))
     },
         ids, x)
@@ -60,7 +59,7 @@ function(x, ...)
     len <- length(content)
     c(.format_TextDocument(x),
       sprintf("Content:  words: %d, sents: %d, paras: %d",
-              sum(sapply(content, NROW)),
+              sum(vapply(content, NROW, 0L)),
               tail(content[[len]]$sent, 1L),
               len))
 }
@@ -71,7 +70,7 @@ function(x, ...)
 ##     content <- x$content
 ##     len <- length(content)
 ##     writeLines(sprintf("<<TaggedTextDocument (words: %d, sents: %d, paras: %d)>>",
-##                        sum(sapply(content, NROW)),
+##                        sum(vapply(content, NROW, 0L)),
 ##                        tail(content[[len]]$sent, 1L),
 ##                        len))
 ##     invisible(x)

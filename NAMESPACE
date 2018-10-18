@@ -7,6 +7,7 @@ S3method("as.String", "String")
 S3method("as.String", "default")
 S3method("[", "String")
 S3method("*", "String")
+S3method("+", "String")
 S3method("print", "String")
 
 export("Span", "as.Span", "is.Span")
@@ -49,7 +50,7 @@ S3method("names", "Annotation")
 S3method("print", "Annotation", .print_via_format)
 S3method("subset", "Annotation")
 S3method("unique", "Annotation")
-export("annotations_in_spans")
+export("annotations_in_spans", "features")
 
 export("annotate")
 
@@ -97,7 +98,7 @@ export("words", "sents", "paras",
 S3method("format", "TextDocument", .format_TextDocument)
 S3method("print", "TextDocument", .print_via_format)
 
-export("AnnotatedPlainTextDocument", "annotations")
+export("AnnotatedPlainTextDocument", "annotation")
 S3method("format", "AnnotatedPlainTextDocument")
 S3method("print", "AnnotatedPlainTextDocument", .print_via_format)
 S3method("content", "AnnotatedPlainTextDocument")
@@ -218,3 +219,24 @@ S3method("format", "Token_Tokenizer")
 S3method("print", "Token_Tokenizer", .print_via_format)
 S3method("meta", "Token_Tokenizer", .get_meta_if_attr)
 S3method("meta<-", "Token_Tokenizer", .set_meta_if_attr)
+
+S3method("words", "udpipe_connlu")
+S3method("sents", "udpipe_connlu")
+S3method("paras", "udpipe_connlu")
+S3method("tagged_words", "udpipe_connlu")
+S3method("tagged_sents", "udpipe_connlu")
+S3method("tagged_paras", "udpipe_connlu")
+
+S3method("words", "spacyr_parsed")
+S3method("sents", "spacyr_parsed")
+S3method("tagged_words", "spacyr_parsed")
+S3method("tagged_sents", "spacyr_parsed")
+
+S3method("words", "annotation")
+S3method("sents", "annotation")
+S3method("paras", "annotation")
+S3method("tagged_words", "annotation")
+S3method("tagged_sents", "annotation")
+S3method("tagged_paras", "annotation")
+
+

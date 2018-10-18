@@ -24,7 +24,7 @@ wordpunct_tokenizer(s)
     pairs.}
   \item{s}{a \code{\link{String}} object, or something coercible to this
     using \code{\link{as.String}()} (e.g., a character string with
-    appropriate encoding information)}
+    appropriate encoding information).}
 }
 \details{
   \code{Regexp_Tokenizer()} creates regexp span tokenizers which use the

@@ -4,7 +4,7 @@
 \description{
   Extract date/time components from strings following one of the six
   formats specified in the NOTE-datetime ISO 8601 profile
-  (\url{http://www.w3.org/TR/NOTE-datetime}).
+  (\url{https://www.w3.org/TR/NOTE-datetime}).
 }
 \arguments{
   \item{x}{a character vector.}
@@ -34,7 +34,7 @@
   extracted date/time components.
 }
 \examples{
-## Use the examples from <http://www.w3.org/TR/NOTE-datetime>, plus one
+## Use the examples from <https://www.w3.org/TR/NOTE-datetime>, plus one
 ## in UTC.
 x <- c("1997",
        "1997-07",

@@ -14,9 +14,9 @@ function(x, expand = FALSE)
         x <- x[pos]
     }
 
-    ## See <http://www.ietf.org/rfc/rfc4646.txt>.
+    ## See <https://www.ietf.org/rfc/rfc4646.txt>.
     ## Language tags can be of the form (in ABNF, see
-    ## <http://tools.ietf.org/rfc/rfc4234.txt>): 
+    ## <https://tools.ietf.org/rfc/rfc4234.txt>): 
     ##   langtag / privateuse / grandfathered
     ## where
     ##   privateuse    = ("x"/"X") 1*("-" (1*8alphanum))
@@ -157,8 +157,8 @@ function(x, expand = FALSE)
                 ## <NOTE>
                 ## We keep the singleton prefix: this could be used in
                 ## expansions of registered extensions: currently,
-                ##   BCP 47 Extension U <http://tools.ietf.org/html/rfc6067>
-                ##   BCP 47 Extension T <http://tools.ietf.org/html/rfc6497>
+                ##   BCP 47 Extension U <https://tools.ietf.org/html/rfc6067>
+                ##   BCP 47 Extension T <https://tools.ietf.org/html/rfc6497>
                 y[pos[ind]] <-
                     Map(c,
                         y[pos[ind]],
@@ -225,7 +225,7 @@ function(x, expand = FALSE)
 }
 
 get_IANA_language_subtag_registry <-
-function(con = "http://www.iana.org/assignments/language-subtag-registry")
+function(con = "https://www.iana.org/assignments/language-subtag-registry")
 {
     ## This is a collection of records in tag-value format, but
     ## unfortunately separated by '%%' lines rather than empty lines, so

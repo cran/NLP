@@ -10,7 +10,7 @@ annotations_in_spans(x, y)
 \arguments{
   \item{x}{an \code{\link{Annotation}} object.}
   \item{y}{a \code{\link{Span}} object, or something coercible to this
-    (such as an \code{\link{Annotation}} object)}
+    (such as an \code{\link{Annotation}} object).}
 }
 \value{
   A list with elements the annotations in \code{x} with character spans

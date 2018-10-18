@@ -29,6 +29,7 @@
 \seealso{
   \code{\link{AnnotatedPlainTextDocument}},
   \code{\link{CoNLLTextDocument}},
+  \code{\link{CoNLLUTextDocument}},
   \code{\link{TaggedTextDocument}}, and
   \code{\link{WordListDocument}}
   for the text document classes provided by package \pkg{NLP}.

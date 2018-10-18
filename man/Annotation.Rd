@@ -39,7 +39,7 @@ is.Annotation(x)
     \code{NULL} (default) resulting in missing types.}
   \item{start, end}{integer vectors giving the start and end positions
     of the character spans the annotations refer to.}
-  \item{features}{a list of (named or empty) features lists, or
+  \item{features}{a list of (named or empty) feature lists, or
     \code{NULL} (default), resulting in empty feature lists.}
   \item{meta}{a named or empty list of annotation metadata tag-value
     pairs.}

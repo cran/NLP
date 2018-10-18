@@ -3,10 +3,11 @@
 String <-
 function(x)
 {
-    y <- enc2utf8(as.character(x)[[1L]])
-    class(y) <- "String"
-    y
+    .String_from_string(as.character(x)[[1L]])
 }
+
+## Note subscripting by [[: this insists on the first element, and
+## hence gives an error instead of NA_character_ if there is none.
 
 as.String <-
 function(x)
@@ -51,10 +52,14 @@ function(x, i, j)
     if(missing(j)) {
         if(is.Span(i))
             return(mysubstring(x, i$start, i$end))
-        if(is.list(i) && length(i) && all(sapply(i, is.Span)))
-            return(lapply(i,
-                          function(e)
-                          mysubstring(x, e$start, e$end)))
+        if(is.list(i)) {
+            if(!length(i))
+                return(list())
+            else if(all(vapply(i, is.Span, NA))) 
+                return(lapply(i,
+                              function(e)
+                                  mysubstring(x, e$start, e$end)))
+        }
     }
     ## Regular slicing operators in a scalar context.
     String(substr(x, i, j))
@@ -64,12 +69,31 @@ function(x, i, j)
 ##
 ## A popular mailing list discussion item is to use a Java style '+'
 ## operator for concatenating strings (not uniformly liked as the
-## corresponding operation is not commutative).
+## corresponding operation is not commutative):
 
-## For now, provide Python-style string repetition.
+`+.String` <-
+function(e1, e2)
+    .String_from_string(paste0(as.String(e1), as.String(e2)))
+
+## Also provide Python-style string repetition.
 
 `*.String` <-
 function(e1, e2)
 {
-    String(paste(rep.int(e1, e2), collapse = ""))
+    if(is.numeric(e1) && (length(e1) == 1L))
+        .String_from_string(paste(rep.int(e2, e1), collapse = ""))
+    else if(is.numeric(e2) && (length(e2) == 1L))
+        .String_from_string(paste(rep.int(e1, e2), collapse = ""))
+    else
+        stop("Invalid operands.")
+}
+
+## What about c.String?
+
+.String_from_string <-
+function(x)
+{
+    y <- enc2utf8(x)
+    class(y) <- "String"
+    y
 }

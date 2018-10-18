@@ -71,8 +71,8 @@ TaggedTextDocument(con, encoding = "unknown",
   metadata element of the CoNLL-style text document.
 }
 \value{
-  An object inheriting from \code{"TaggedTextDocument"} and
-  \code{"\link{TextDocument}"}.
+  A tagged text document object inheriting from
+  \code{"TaggedTextDocument"} and \code{"\link{TextDocument}"}.
 }
 \seealso{
   \url{http://nltk.github.com/nltk_data/packages/corpora/brown.zip}

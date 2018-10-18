@@ -55,14 +55,13 @@ CoNLLTextDocument(con, encoding = "unknown", format = "conll00",
   document object inheriting from classes \code{"CoNLLTextDocument"} and
   \code{"\link{TextDocument}"}.
 
-  There are methods for generics
+  There are methods for class \code{"CoNLLTextDocument"} and generics
   \code{\link{words}()},
   \code{\link{sents}()},
   \code{\link{tagged_words}()},
   \code{\link{tagged_sents}()}, and
   \code{\link{chunked_sents}()}
-  (as well as \code{\link{as.character}()})
-  and class \code{"CoNLLTextDocument"},
+  (as well as \code{\link{as.character}()}),
   which should be used to access the text in such text document
   objects.
 
@@ -83,7 +82,7 @@ CoNLLTextDocument(con, encoding = "unknown", format = "conll00",
   \code{\link{TextDocument}} for basic information on the text document
   infrastructure employed by package \pkg{NLP}.
 
-  \url{http://www.cnts.ua.ac.be/conll2000/chunking/} for the CoNLL-2000
-  chunking task, and training and test data sets which can be read in
-  using \code{CoNLLTextDocument()}.
+  \url{https://www.clips.uantwerpen.be/conll2000/chunking/} for the
+  CoNLL-2000 chunking task, and training and test data sets which can be
+  read in using \code{CoNLLTextDocument()}.
 }

@@ -1,12 +1,12 @@
 ## Tokenizers break text up into words, phrases, symbols, or other
 ## meaningful elements called tokens, see e.g.
-## <http://en.wikipedia.org/wiki/Tokenization_%28lexical_analysis%29>.
+## <https://en.wikipedia.org/wiki/Tokenization_%28lexical_analysis%29>.
 ## This can be accomplished by returning the sequence of tokens, or the
 ## corresponding spans (character start and end positions).
 ## Apache OpenNLP provides a Tokenizer interface, with methods
 ## String[] tokenize() and Span[] tokenizePos() for the two variants.
 ## See e.g.
-## <https://opennlp.apache.org/documentation/1.5.3/apidocs/opennlp-tools/opennlp/tools/tokenize/Tokenizer.html>.
+## <http://opennlp.apache.org/docs/1.5.3/apidocs/opennlp-tools/opennlp/tools/tokenize/Tokenizer.html>.
 ## NLTK provides an interface class nltk.tokenize.api.TokenizerI, for
 ## which subclasses must define a tokenize() method, and can define a
 ## span_tokenize() method.

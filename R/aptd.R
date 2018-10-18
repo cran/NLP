@@ -1,19 +1,12 @@
 AnnotatedPlainTextDocument <-
-function(s, annotations, meta = list())
+function(s, a, meta = list())
 {
     s <- as.String(s)
 
     ## Be nice.
-    if(is.Annotation(annotations))
-        annotations <- list(annotations)
-    else {
-        annotations <- as.list(annotations)
-        if(!length(annotations) ||
-           !all(sapply(annotations, is.Annotation)))
-            stop("argument 'annotations' must give a positive number of Annotation objects")
-    }
+    a <- as.Annotation(a)
 
-    doc <- list(content = s, meta = meta, annotations = annotations)
+    doc <- list(content = s, annotation = a, meta = meta)
     class(doc) <- c("AnnotatedPlainTextDocument",
                     "PlainTextDocument",
                     "TextDocument")
@@ -24,26 +17,13 @@ function(s, annotations, meta = list())
 format.AnnotatedPlainTextDocument <-
 function(x, ...)
 {        
-    annotations <- x$annotations
     c(.format_TextDocument(x),
-      sprintf("Annotations:  %d, length(s): %s",
-              length(annotations),
-              paste(lengths(annotations), collapse = "/")),
+      sprintf("Annotations:  length: %s",
+              length(x$annotation)),
       sprintf("Content:  chars: %d",
               nchar(x$content)))
 }
     
-## print.AnnotatedPlainTextDocument <-
-## function(x, ...)
-## {
-##     annotations <- x$annotations
-##     writeLines(sprintf("<<AnnotatedPlainTextDocument (annotations: %d, length(s): %s)>>",
-##                        length(annotations),
-##                        paste(lengths(annotations),
-##                              collapse = "/")))
-##     invisible(x)
-## }
-
 content.AnnotatedPlainTextDocument <-
 function(x)
     x$content
@@ -70,34 +50,34 @@ as.character.AnnotatedPlainTextDocument <-
 function(x, ...)
     x$content
 
-annotations <-
+annotation <-
 function(x)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
-    x$annotations
+    x$annotation
 }
 
 ## NLTK style functions for high level access 
 
 words.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     ## Could check for word token annotations ...
     s[a[a$type == "word"]]
 }
 
 sents.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     .sents_from_annotation_and_text(a, s)
 }
 
@@ -110,24 +90,24 @@ function(a, s)
 }
 
 paras.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .sents_from_annotation_and_text, s)
 }
 
 tagged_words.AnnotatedPlainTextDocument <-
-function(x, which = 1L, map = NULL, ...)
+function(x, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     ## Could check for word token annotations ...
     a <- a[a$type == "word"]
     if(!is.null(map))
@@ -138,18 +118,17 @@ function(x, which = 1L, map = NULL, ...)
 .tagged_words_from_annotation_and_text <-
 function(a, s)
 {
-    ## Could check for POS tag features ...
-    pos <- sapply(a$features, `[[`, "POS")
+    pos <- .annotation_features_with_template(a, "POS")
     Tagged_Token(s[a], pos)
 }
 
 tagged_sents.AnnotatedPlainTextDocument <-
-function(x, which = 1L, map = NULL, ...)
+function(x, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     if(!is.null(map))
         a <- .map_POS_tags_Annotation(a, map)
     .tagged_sents_from_annotation_and_text(a, s)
@@ -165,12 +144,12 @@ function(a, s)
 }
 
 tagged_paras.AnnotatedPlainTextDocument <-
-function(x, which = 1L, map = NULL, ...)
+function(x, map = NULL, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     if(!is.null(map))
         a <- .map_POS_tags_Annotation(a, map)
     ## Could check for paragraph annotations ...
@@ -179,40 +158,41 @@ function(x, which = 1L, map = NULL, ...)
 }
            
 parsed_sents.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     .parsed_sents_from_annotation(a)
 }
 
 .parsed_sents_from_annotation <-
 function(a)
 {
-    ## Could check for sentence token annotations and parse features ...
-    ptexts <- sapply(a[a$type == "sentence"]$features, `[[`, "parse")
+    ## Could check for sentence token annotations ...
+    a <- a[a$type == "sentence"]
+    ptexts <- .annotation_features_with_template(a, "parse")
     lapply(ptexts, Tree_parse)
 }
 
 parsed_paras.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
-    a <- annotations(x)[[which]]
+    a <- x$annotation
     ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .parsed_sents_from_annotation)
 }
 
 chunked_sents.AnnotatedPlainTextDocument <-
-function(x, which = 1L, ...)
+function(x, ...)
 {
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
-    a <- annotations(x)[[which]]
+    a <- x$annotation
 
     ## Require annotations with POS and chunk_tag features, as obtained
     ## e.g. with the Apache OpenNLP POS tag and chunk annotators.  We
@@ -224,8 +204,8 @@ function(x, which = 1L, ...)
                                 a[a$type == "sentence"]),
            function(a) {
                ## Could check for POS and chunk tag features ...
-               ptags <- sapply(a$features, `[[`, "POS")
-               ctags <- sapply(a$features, `[[`, "chunk_tag")
+               ptags <- .annotation_features_with_template(a, "POS")
+               ctags <- .annotation_features_with_template(a, "chunk_tag")
                words <- s[a]
                chunk_tree_from_chunk_info(words, ptags, ctags)
            })
@@ -243,4 +223,15 @@ function(x, map)
                    e
                })
     x
+}
+
+.annotation_features_with_template <-
+function(x, tag, FUN.VALUE = "")
+{
+    tryCatch(vapply(x$features, function(e) e[[tag]], FUN.VALUE),
+             error = function(e) {
+                 stop(sprintf("incomplete or invalid '%s' features",
+                              tag),
+                      call. = FALSE)
+             })
 }

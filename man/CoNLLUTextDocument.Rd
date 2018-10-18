@@ -64,7 +64,7 @@ CoNLLUTextDocument(con, meta = list())
   tokens (see section \sQuote{Words, Tokens and Empty Nodes} in the
   format documentation), as distinguished by ids being integers or
   integer ranges, with the words being annotated further.  One can
-  extract the \emph{tokens} using \code{as.character()}; all other
+  use \code{as.character()} to extract the \emph{tokens}; all other
   viewers listed above use the \emph{words}.  Finally, the viewers
   incorporating POS tags take a \code{which} argument to specify using
   the univeral or language-specific tags, by giving a substring of
