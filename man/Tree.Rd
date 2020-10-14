@@ -38,7 +38,7 @@ Tree_apply(x, f, recursive = FALSE)
   and displayed using nested brackettings.
 
   The tree objects in package \pkg{NLP} are patterned after the ones in
-  NLTK (\url{http://nltk.org}), and primarily designed for representing
+  NLTK (\url{https://www.nltk.org}), and primarily designed for representing
   parse trees.  A tree object consists of the value of the root node and
   its children as a list of leaves and subtrees, where the leaves are
   elements with arbitrary non-tree values (and not subtrees with no

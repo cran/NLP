@@ -75,7 +75,7 @@ TaggedTextDocument(con, encoding = "unknown",
   \code{"TaggedTextDocument"} and \code{"\link{TextDocument}"}.
 }
 \seealso{
-  \url{http://nltk.github.com/nltk_data/packages/corpora/brown.zip}
+  \url{https://www.nltk.org/nltk_data/packages/corpora/brown.zip}
   which provides the W. N. Francis and H. Kucera Brown tagged word
   corpus as an archive of files which can be read in using
   \code{TaggedTextDocument()}.

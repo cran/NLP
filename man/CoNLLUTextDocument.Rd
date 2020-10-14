@@ -18,17 +18,17 @@ CoNLLUTextDocument(con, meta = list())
 }
 \details{
   The CoNLL-U format (see
-  \url{http://universaldependencies.org/format.html})
+  \url{https://universaldependencies.org/format.html})
   is a CoNLL-style format for annotated texts popularized and employed
   by the Universal Dependencies project
-  (see \url{http://universaldependencies.org/}).
+  (see \url{https://universaldependencies.org/}).
   For each \dQuote{word} in the text, this provides exactly the 10
   fields
   \code{ID},
   \code{FORM} (word form or punctuation symbol),
   \code{LEMMA} (lemma or stem of word form),
   \code{UPOSTAG} (universal part-of-speech tag, see
-  \url{http://universaldependencies.org/u/pos/index.html}),
+  \url{https://universaldependencies.org/u/pos/index.html}),
   \code{XPOSTAG} (language-specific part-of-speech tag, may be
   unavailable),
   \code{FEATS} (list of morphological features),
@@ -47,7 +47,7 @@ CoNLLUTextDocument(con, meta = list())
   The complete annotation information data frame can be extracted via
   \code{content()}.  CoNLL-U v2 requires providing the complete texts of
   each sentence (or a reconstruction thereof) in \samp{# text =} comment
-  lines.  Where consistently provided, these are made avaialable in the
+  lines.  Where consistently provided, these are made available in the
   \code{text} attribute of the content data frame.
 
   In addition, there are methods for generics
@@ -67,7 +67,7 @@ CoNLLUTextDocument(con, meta = list())
   use \code{as.character()} to extract the \emph{tokens}; all other
   viewers listed above use the \emph{words}.  Finally, the viewers
   incorporating POS tags take a \code{which} argument to specify using
-  the univeral or language-specific tags, by giving a substring of
+  the universal or language-specific tags, by giving a substring of
   \code{"UPOSTAG"} (default) or \code{"XPOSTAG"}.
 }
 \value{
@@ -78,7 +78,7 @@ CoNLLUTextDocument(con, meta = list())
   \code{\link{TextDocument}} for basic information on the text document
   infrastructure employed by package \pkg{NLP}.
 
-  \url{http://universaldependencies.org/} for access to the Universal
+  \url{https://universaldependencies.org/} for access to the Universal
   Dependencies treebanks, which provide annotated texts in \emph{many}
   different languages using CoNLL-U format.
 }

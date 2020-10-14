@@ -232,11 +232,11 @@ S3method("sents", "spacyr_parsed")
 S3method("tagged_words", "spacyr_parsed")
 S3method("tagged_sents", "spacyr_parsed")
 
-S3method("words", "annotation")
-S3method("sents", "annotation")
-S3method("paras", "annotation")
-S3method("tagged_words", "annotation")
-S3method("tagged_sents", "annotation")
-S3method("tagged_paras", "annotation")
+S3method("words", "cnlp_annotation")
+S3method("sents", "cnlp_annotation")
+## S3method("paras", "cnlp_annotation")
+S3method("tagged_words", "cnlp_annotation")
+S3method("tagged_sents", "cnlp_annotation")
+## S3method("tagged_paras", "cnlp_annotation")
 
 

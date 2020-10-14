@@ -1,5 +1,5 @@
 Package: NLP
-Version: 0.2-0
+Version: 0.2-1
 Title: Natural Language Processing Infrastructure
 Authors@R: person("Kurt", "Hornik", role = c("aut", "cre"),
                   email = "Kurt.Hornik@R-project.org",
@@ -10,8 +10,8 @@ Imports: utils
 Depends: R (>= 3.2.0)
 Enhances: udpipe, spacyr, cleanNLP
 NeedsCompilation: no
-Packaged: 2018-10-18 15:27:32 UTC; hornik
+Packaged: 2020-10-14 13:54:10 UTC; hornik
 Author: Kurt Hornik [aut, cre] (<https://orcid.org/0000-0003-4198-9911>)
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Repository: CRAN
-Date/Publication: 2018-10-18 15:58:05 UTC
+Date/Publication: 2020-10-14 14:06:09 UTC

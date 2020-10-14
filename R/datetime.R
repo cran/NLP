@@ -13,7 +13,7 @@ function(x)
 
     bad <- (is.na(x) |
             (x == "") |
-            ((nzchar(x) > 10L) && (substring(x, 11L, 11L) != "T")))
+            ((nzchar(x) > 10L) & (substring(x, 11L, 11L) != "T")))
     if(any(bad)) {
         pos <- pos[!bad]
         x <- x[pos]

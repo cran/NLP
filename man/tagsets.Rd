@@ -40,7 +40,7 @@ Universal_POS_tags_map
 \source{
   \url{https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html},
   \url{http://www.hit.uib.no/icame/brown/bcm.html},
-  \url{https://code.google.com/p/universal-pos-tags/}.
+  \url{https://github.com/slavpetrov/universal-pos-tags}.
 }
 \examples{
 ## Penn Treebank POS tags
