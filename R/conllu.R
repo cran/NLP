@@ -75,6 +75,7 @@ function(x)
     x$content
 
 as.character.CoNLLUTextDocument <-
+otoks.CoNLLUTextDocument <-
 function(x, ...)    
 {
     y <- x$content

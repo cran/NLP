@@ -67,8 +67,20 @@ function(x, ...)
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
     a <- x$annotation
-    ## Could check for word token annotations ...
-    s[a[a$type == "word"]]
+    a <- a[a$type == "word"]
+    .words_from_annotation_and_text(a, s)
+}
+
+.words_from_annotation_and_text <-
+function(a, s)
+{
+    a <- a[a$type == "word"]
+    w <- s[a]
+    ## Use a word feature where available.
+    f <- lapply(a$features, `[[`, "word")
+    i <- (lengths(f) > 0L)
+    w[i] <- unlist(f[i])
+    w
 }
 
 sents.AnnotatedPlainTextDocument <-
@@ -84,9 +96,9 @@ function(x, ...)
 .sents_from_annotation_and_text <-
 function(a, s)
 {
-    ## Could check for sentence and word token annotations ...
-    s[annotations_in_spans(a[a$type == "word"],
-                           a[a$type == "sentence"])]
+    a <- annotations_in_spans(a[a$type == "word"],
+                              a[a$type == "sentence"])
+    lapply(a, .words_from_annotation_and_text, s)
 }
 
 paras.AnnotatedPlainTextDocument <-
@@ -96,7 +108,6 @@ function(x, ...)
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
     a <- x$annotation
-    ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .sents_from_annotation_and_text, s)
 }
@@ -108,7 +119,6 @@ function(x, map = NULL, ...)
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     s <- x$content
     a <- x$annotation
-    ## Could check for word token annotations ...
     a <- a[a$type == "word"]
     if(!is.null(map))
         a <- .map_POS_tags_Annotation(a, map)
@@ -119,7 +129,7 @@ function(x, map = NULL, ...)
 function(a, s)
 {
     pos <- .annotation_features_with_template(a, "POS")
-    Tagged_Token(s[a], pos)
+    Tagged_Token(.words_from_annotation_and_text(a, s), pos)
 }
 
 tagged_sents.AnnotatedPlainTextDocument <-
@@ -137,7 +147,6 @@ function(x, map = NULL, ...)
 .tagged_sents_from_annotation_and_text <-
 function(a, s)
 {
-    ## Could check for word and sentence token annotations ...
     lapply(annotations_in_spans(a[a$type == "word"],
                                 a[a$type == "sentence"]),
            .tagged_words_from_annotation_and_text, s)
@@ -152,7 +161,6 @@ function(x, map = NULL, ...)
     a <- x$annotation
     if(!is.null(map))
         a <- .map_POS_tags_Annotation(a, map)
-    ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .tagged_sents_from_annotation_and_text, s)
 }
@@ -169,7 +177,6 @@ function(x, ...)
 .parsed_sents_from_annotation <-
 function(a)
 {
-    ## Could check for sentence token annotations ...
     a <- a[a$type == "sentence"]
     ptexts <- .annotation_features_with_template(a, "parse")
     lapply(ptexts, Tree_parse)
@@ -181,7 +188,6 @@ function(x, ...)
     if(!inherits(x, "AnnotatedPlainTextDocument"))
         stop("argument 'x' must be an AnnotatedPlainTextDocument object")
     a <- x$annotation
-    ## Could check for paragraph annotations ...
     lapply(annotations_in_spans(a, a[a$type == "paragraph"]),
            .parsed_sents_from_annotation)
 }
@@ -199,16 +205,26 @@ function(x, ...)
     ## could alternatively use annotations with parse features and
     ## flatten the parse trees.
 
-    ## Could check for word and sentence token annotations ...
     lapply(annotations_in_spans(a[a$type == "word"],
                                 a[a$type == "sentence"]),
            function(a) {
-               ## Could check for POS and chunk tag features ...
                ptags <- .annotation_features_with_template(a, "POS")
                ctags <- .annotation_features_with_template(a, "chunk_tag")
-               words <- s[a]
+               words <- .words_from_annotation_and_text(a, s)
                chunk_tree_from_chunk_info(words, ptags, ctags)
            })
+}
+
+otoks.AnnotatedPlainTextDocument <-
+function(x, ...)
+{
+    if (!inherits(x, "AnnotatedPlainTextDocument")) 
+        stop("argument 'x' must be an AnnotatedPlainTextDocument object")
+    s <- x$content
+    a <- x$annotation
+    a <- a[a$type == "word"]
+    a <- a[!duplicated(sprintf("%d-%d", a$start, a$end))]
+    s[a]
 }
 
 .map_POS_tags_Annotation <-

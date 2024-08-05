@@ -18,7 +18,7 @@ Universal_POS_tags_map
   respectively, the Penn Treebank POS tags
   (\url{https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html}, Table 2)
   and the POS tags used for the Brown corpus
-  (\url{http://www.hit.uib.no/icame/brown/bcm.html}),
+  (\url{https://en.wikipedia.org/wiki/Brown_Corpus}),
   both as data frames with the following variables:
   \describe{
     \item{entry}{a character vector with the POS tags}
@@ -29,7 +29,7 @@ Universal_POS_tags_map
 
   \code{Universal_POS_tags} provides the universal POS tagset introduced
   by Slav Petrov, Dipanjan Das, and Ryan McDonald
-  (\url{https://arxiv.org/abs/1104.2086}), as a data frame with character
+  (\doi{10.48550/arXiv.1104.2086}), as a data frame with character
   variables \code{entry} and \code{description}.
 
   \code{Universal_POS_tags_map} is a named list of mappings from
@@ -39,7 +39,9 @@ Universal_POS_tags_map
 }
 \source{
   \url{https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html},
-  \url{http://www.hit.uib.no/icame/brown/bcm.html},
+  % As of 2024-07, \url{http://www.hit.uib.no/icame/brown/bcm.html} no
+  % longer works, so use the download info from Wikipedia.
+  \url{http://www.nltk.org/nltk_data/},
   \url{https://github.com/slavpetrov/universal-pos-tags}.
 }
 \examples{

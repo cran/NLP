@@ -15,7 +15,7 @@ annotation(x)
     using \code{\link{as.String}()} (e.g., a character string with
     appropriate encoding information).}
   \item{a}{an \code{\link{Annotation}} object with annotations for
-    \code{x}.}
+    \code{s}.}
   \item{meta}{a named or empty list of document metadata tag-value
     pairs.}
   \item{x}{an object inheriting from class
@@ -78,26 +78,26 @@ annotation(x)
 ##   s <- paste("Stanford University is located in California.",
 ##              "It is a great university.")
 ##   p <- StanfordCoreNLP_Pipeline(c("pos", "lemma", "parse"))
-##   doc <- AnnotatedPlainTextDocument(s, p(s))
+##   d <- AnnotatedPlainTextDocument(s, p(s))
 
-doc <- readRDS(system.file("texts", "stanford.rds", package = "NLP"))
+d <- readRDS(system.file("texts", "stanford.rds", package = "NLP"))
 
-doc
+d
 
 ## Extract available annotation:
-a <- annotation(doc)
+a <- annotation(d)
 a
 
 ## Structured views:
-sents(doc)
-tagged_sents(doc)
-tagged_sents(doc, map = Universal_POS_tags_map)
-parsed_sents(doc)
+sents(d)
+tagged_sents(d)
+tagged_sents(d, map = Universal_POS_tags_map)
+parsed_sents(d)
 
 ## Add (trivial) paragraph annotation:
-s <- as.character(doc)
+s <- as.character(d)
 a <- annotate(s, Simple_Para_Token_Annotator(blankline_tokenizer), a)
-doc <- AnnotatedPlainTextDocument(s, a)
+d <- AnnotatedPlainTextDocument(s, a)
 ## Structured view:
-paras(doc)
+paras(d)
 }

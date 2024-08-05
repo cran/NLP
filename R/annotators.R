@@ -379,7 +379,7 @@ function(a)
         j <- which(a$type == "word")
         ## Should we also make sure tokens are ordered by character
         ## offsets?
-        k <- rowSums(outer(a$start[j], a$start[i], ">="))
+        k <- rowSums(outer(a$start[j], a$start[i], `>=`))
         constituents <- split(a$id[j], k)
         names(constituents) <- a$id[i][as.integer(names(constituents))]
         ## Assuming there can not be empty sentences, we could more

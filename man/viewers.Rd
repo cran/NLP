@@ -8,6 +8,7 @@
 \alias{chunked_sents}
 \alias{parsed_sents}
 \alias{parsed_paras}
+\alias{otoks}
 \title{Text Document Viewers}
 \description{
   Provide suitable \dQuote{views} of the text contained in text
@@ -41,6 +42,19 @@ parsed_paras(x, ...)
   (this information is typically determined from the text document
   metadata; see the the help pages for text document extension classes
   implementing this mechanism for details).
+
+  Text document classes may provide support for representing both
+  (syntactic) words (for which annotations can be provided) and
+  orthographic (word) tokens, e.g., in Spanish \emph{dámelo = da me lo}.
+  For these, \code{words()} gives the syntactic word tokens, and
+  \code{otoks()} the orthographic word tokens.  This is currently
+  supported for \link[=CoNLLUTextDocument]{CoNNL-U text documents} (see
+  \url{https://universaldependencies.org/format.html} for more
+  information) and \link[=AnnotatedPlainTextDocument]{annotated plain
+  text documents} (via \code{word} features as used for example for some
+  Stanford CoreNLP annotator pipelines provided by package
+  \pkg{StanfordCoreNLP} available from the repository at
+  \url{https://datacube.wu.ac.at}).
 
   In addition to methods for the text document classes provided by
   package \pkg{NLP} itself, (see \link{TextDocument}), package \pkg{NLP}
@@ -84,8 +98,21 @@ parsed_paras(x, ...)
   For \code{parsed_paras()}, a list of lists of \code{\link{Tree}}
   objects giving the parse trees for the sentences in the document,
   grouped according to the paragraphs in the document.
+
+  For \code{otoks()}, a character vector with the orthographic word
+  tokens in the document.
 }
 \seealso{
   \code{\link{TextDocument}} for basic information on the text document
   infrastructure employed by package \pkg{NLP}.
+}
+\examples{
+## Example from <https://universaldependencies.org/format.html>:
+d <- CoNLLUTextDocument(system.file("texts", "spanish.conllu",
+                                    package = "NLP"))
+content(d)
+## To extract the syntactic words:
+words(d)
+## To extract the orthographic word tokens:
+otoks(d)
 }

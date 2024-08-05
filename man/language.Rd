@@ -13,10 +13,13 @@
 }
 \details{
   Internet Engineering Task Force (IETF) language tags are defined by
-  IETF BCP 47, which is currently composed by the normative RFC 5646
-  (\url{https://tools.ietf.org/html/rfc5646}) and RFC 4647
-  (\url{https://tools.ietf.org/html/rfc4646}), along with the normative
-  content of the IANA Language Subtag Registry regulated by these RFCs.
+  \href{https://www.rfc-editor.org/info/bcp47}{IETF BCP 47},
+  which is currently composed by the normative
+  \href{https://datatracker.ietf.org/doc/html/rfc5646}{RFC 5646} and
+  \href{https://datatracker.ietf.org/doc/html/rfc4647}{RFC 4647},
+  along with the normative content of the
+  \href{https://www.iana.org/assignments/language-subtag-registry/}{IANA Language Subtag Registry}
+  regulated by these RFCs.
   These tags are used in a number of modern computing standards.
 
   Each language tag is composed of one or more \dQuote{subtags}

@@ -93,7 +93,8 @@ export("Tree_parse", "Tree_apply")
 export("words", "sents", "paras",
        "tagged_words", "tagged_sents", "tagged_paras",
        "chunked_sents",
-       "parsed_sents", "parsed_paras")
+       "parsed_sents", "parsed_paras",
+       "otoks")
 
 S3method("format", "TextDocument", .format_TextDocument)
 S3method("print", "TextDocument", .print_via_format)
@@ -115,6 +116,7 @@ S3method("tagged_paras", "AnnotatedPlainTextDocument")
 S3method("chunked_sents", "AnnotatedPlainTextDocument")
 S3method("parsed_sents", "AnnotatedPlainTextDocument")
 S3method("parsed_paras", "AnnotatedPlainTextDocument")
+S3method("otoks", "AnnotatedPlainTextDocument")
 
 export("CoNLLTextDocument")
 S3method("format", "CoNLLTextDocument")
@@ -140,6 +142,7 @@ S3method("words", "CoNLLUTextDocument")
 S3method("sents", "CoNLLUTextDocument")
 S3method("tagged_words", "CoNLLUTextDocument")
 S3method("tagged_sents", "CoNLLUTextDocument")
+S3method("otoks", "CoNLLUTextDocument")
 
 export("TaggedTextDocument")
 S3method("format", "TaggedTextDocument")

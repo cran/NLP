@@ -34,6 +34,9 @@ parsed_paras <-
 function(x, ...)
     UseMethod("parsed_paras")
 
+otoks <-
+function(x, ...)
+    UseMethod("otoks")
 
 chunk_tree_from_chunk_info <-
 function(words, ptags, ctags)
