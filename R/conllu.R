@@ -1,7 +1,7 @@
 ## See <http://universaldependencies.org/format.html>.
 
-CoNLLUTextDocument <-
-function(con, meta = list())    
+read_CoNNLU <-
+function(con)
 {
     lines <- readLines(con, encoding = "UTF-8")
     ind_b <- lines == ""
@@ -24,7 +24,8 @@ function(con, meta = list())
     ##              as.data.frame(do.call(cbind, records),
     ##                            stringsAsFactors = FALSE))[ind , ]
 
-    sent <- cumsum(ind_b) + 1L
+    pos <- which(ind_b)
+    sent <- rep.int(seq_along(pos), diff(c(0L, pos)))
     tab <- cbind(data.frame(sent[ind]),
                  as.data.frame(do.call(rbind,
                                        strsplit(lines[ind], "\t",
@@ -40,16 +41,28 @@ function(con, meta = list())
     ## From CoNLL-U v2 on 'sent_id' and 'text' comments are compulsory
     ## for every sentence.  Be defensive and add these as attributes
     ## only if always available.
-    ind <- startsWith("# sent_id =", lines)
+    ind <- startsWith(lines, "# sent_id =")
     if(all(diff(sent[ind]) == 1))
         attr(tab, "sent_id") <-
             sub("^# sent_id = *", "", lines[ind])
-                ind <- startsWith("# text =", lines)
+    ind <- startsWith(lines, "# text =")
     if(all(diff(sent[ind]) == 1))
         attr(tab, "text") <-
             sub("^# text = *", "", lines[ind])
 
-    doc <- list(content = tab, meta = meta)
+    class(tab) <- c("CoNNLU_Annotation", "data.frame")
+    tab
+}
+
+CoNLLUTextDocument <-
+function(con, meta = list(), text = NULL)    
+{
+    tab <- read_CoNNLU(con)
+    doc <- list(content = tab,
+                meta = meta,
+                text = if(is.null(text))
+                           attr(tab, "text")
+                       else text)
     class(doc) <- c("CoNLLUTextDocument", "TextDocument")
     doc
 }
@@ -75,6 +88,19 @@ function(x)
     x$content
 
 as.character.CoNLLUTextDocument <-
+function(x, ...)
+{
+    if(!is.null(y <- x$text))
+        y
+    else
+        otoks(x)
+}
+
+## <NOTE>
+## All methods below could also be provided for CoNNLU_Annotation
+## objects. 
+## </NOTE>
+    
 otoks.CoNLLUTextDocument <-
 function(x, ...)    
 {

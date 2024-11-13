@@ -29,7 +29,8 @@ CoNLLTextDocument(con, encoding = "unknown", format = "conll00",
   of CoNLL (Conference on Natural Language Learning), the yearly meeting
   of the Special Interest Group on Natural Language Learning of the
   Association for Computational Linguistics (see
-  \url{https://www.signll.org/conll/} for more information about CoNLL).
+  \url{https://www.signll.org/content/conll/}
+  for more information about CoNLL).
   
   The precise format can vary according to corpus, and must be specified
   via argument \code{format}, as either a character string giving a

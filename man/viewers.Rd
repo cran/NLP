@@ -60,12 +60,12 @@ parsed_paras(x, ...)
   package \pkg{NLP} itself, (see \link{TextDocument}), package \pkg{NLP}
   also provides word tokens and POS tagged word tokens for the results
   of
-  \code{\link[udpipe:udpipe_annotate]{udpipe_annotate}()}
+  \code{\link[udpipe]{udpipe_annotate}()}
   from package \CRANpkg{udpipe},
-  \code{\link[spacyr:spacy_parse]{spacy_parse}()}
+  \code{\link[spacyr]{spacy_parse}()}
   from package \CRANpkg{spacyr},
   and
-  \code{\link[cleanNLP:cnlp_annotate]{cnlp_annotate}()}
+  \code{\link[cleanNLP]{cnlp_annotate}()}
   from package \CRANpkg{cleanNLP}.
 }
 \value{

@@ -1,5 +1,6 @@
 \name{language}
 \alias{parse_IETF_language_tag}
+\alias{language}
 \title{Parse IETF Language Tag}
 \description{
   Extract language, script, region and variant subtags from IETF

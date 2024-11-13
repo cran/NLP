@@ -1,5 +1,5 @@
 Package: NLP
-Version: 0.3-0
+Version: 0.3-1
 Title: Natural Language Processing Infrastructure
 Authors@R: person("Kurt", "Hornik", role = c("aut", "cre"),
                   email = "Kurt.Hornik@R-project.org",
@@ -7,12 +7,12 @@ Authors@R: person("Kurt", "Hornik", role = c("aut", "cre"),
 Description: Basic classes and methods for Natural Language Processing.
 License: GPL-3
 Imports: utils
-Depends: R (>= 3.2.0)
+Depends: R (>= 3.5.0)
 Enhances: udpipe, spacyr, cleanNLP
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2024-08-05 07:57:16 UTC; hornik
+Packaged: 2024-11-13 06:15:25 UTC; hornik
 Author: Kurt Hornik [aut, cre] (<https://orcid.org/0000-0003-4198-9911>)
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Repository: CRAN
-Date/Publication: 2024-08-05 08:07:00 UTC
+Date/Publication: 2024-11-13 07:13:13 UTC
